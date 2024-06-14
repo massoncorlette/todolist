@@ -10,3 +10,9 @@ https://culturedcode.com/things/features/
 Libraries: https://github.com/date-fns/date-fns
 https://www.npmjs.com/package/date-fns
 
+To-do object properties: title, details(optional), duedate(optional), important toggle, checklist toggle
+
+Want to add an extra feature for habit tracker,
+where for everyday you can add if you did 
+the habit. (E.g - exercise, studying, reading).
+
