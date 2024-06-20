@@ -1,6 +1,6 @@
 // dom.js
 
-export default function initializeSidebarButton(sidebarIcon) {
+export default function toggleSidebarButton(sidebarIcon) {
   const main = document.querySelector('main');
   const sidebar = document.querySelector('.sidebar-container');
   const sidebarBtn = document.getElementById('sidebar-icon');

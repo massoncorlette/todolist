@@ -16,3 +16,47 @@ Want to add an extra feature for habit tracker,
 where for everyday you can add if you did 
 the habit. (E.g - exercise, studying, reading).
 
+PSEUDO:
+INDEX.js
+display upon DOMload
+  initializeSidebarButton();
+
+//////////////
+Helpers.js
+
+  projects[];
+
+  project Object(title,notes, complete, date)
+    this.tasksArray[];
+
+  task Object(task,complete)
+
+  addProject(); factory function
+    addArray();
+      adds project objects to projects array
+    addTasks();
+      adds task to project this.tasksArray
+       *task obj properties(task, complete boolean)
+    deleteArray();
+    
+
+    
+/////////////
+DOM.js
+toggleSidebarButton();   
+  toggles sidebar 
+
+newProject();
+  'click' event listener addProject();
+    import addProject();
+      user inputs new project details
+
+projectDetails();
+  'click' event listener for every project in sidebar
+   displays project details in main-body
+
+newTask();
+  'click' event listener to add task
+   import addProject.addTasks();
+   displays task details in list
+
