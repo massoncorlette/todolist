@@ -44,10 +44,23 @@ newProject();
 
 projectDetails();
   'click' event listener for every project in sidebar
-   displays project details in main-body
+   displays project details(tasks, notes, date) in body
 
 newTask();
   'click' event listener to add task
    import addProject.addTasks();
    displays task details in list
+
+sidebarAllTasks();
+    'click' event to display all tasks in body
+
+sidebarImportant();
+    'click' event to display all important tasks from any project in body
+
+sidebarCalendar();
+    'click' event to display calendar with 
+    projects and what is completed
+
+
+
 

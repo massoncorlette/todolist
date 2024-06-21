@@ -23,6 +23,7 @@ body {
   display: flex;
   grid-row: 2/11;
   grid-column: 1/3;
+  background-color: orange;
 }
 
 #sidebar-icon {
@@ -33,6 +34,11 @@ body {
 
 .sidebar-container.open {
   width: 0;
+}
+
+.icons {
+  width: 50px;
+  height: 50px;
 }
 
 main {
