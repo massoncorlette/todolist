@@ -1,4 +1,5 @@
 // dom.js
+import sidebarIcon from './icons/sidebar.svg';
 
 export default function toggleSidebarButton(sidebarIcon) {
   const main = document.querySelector('main');
@@ -16,3 +17,17 @@ export default function toggleSidebarButton(sidebarIcon) {
     main.classList.toggle('full');
   });
 };
+
+// making sure to focus on DOM only, not logic
+export default function newProject(); {
+
+}
+
+export default function projectDetails(); {
+
+}
+
+export default function newTask(); {
+
+}
+

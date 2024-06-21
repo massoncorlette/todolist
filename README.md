@@ -26,19 +26,10 @@ Helpers.js
 
   projects[];
 
-  project Object(title,notes, complete, date)
+  addProject factory(title,notes, complete, date, delete add methods)
     this.tasksArray[];
 
-  task Object(task,complete)
-
-  addProject(); factory function
-    addArray();
-      adds project objects to projects array
-    addTasks();
-      adds task to project this.tasksArray
-       *task obj properties(task, complete boolean)
-    deleteArray();
-    
+  addTask factory function(task,complete,delete and add methods)
 
     
 /////////////

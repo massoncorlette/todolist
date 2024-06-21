@@ -5,7 +5,7 @@ import sidebarIcon from './icons/sidebar.svg';
 import toggleSidebarButton from './dom.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-  initializeSidebarButton(sidebarIcon);
+  toggleSidebarButton(sidebarIcon);
   console.log("test");
 });
 
