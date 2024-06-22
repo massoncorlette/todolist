@@ -16,8 +16,8 @@ body {
 }
 
 h1 {
-  font-weight: 900;
-  font-stretch: condensed;
+  font-size: 42px;
+  letter-spacing: -0.075em;
 }
 
 p {
@@ -25,15 +25,14 @@ p {
   opacity: 80%;
 }
 
+
 #break-line {
   display: flex;
   height: 1px;
   width: 100%;
   background-color: #2196F3 !important; /* Ensure background color is set */
   grid-column: span 21;
-
-  
-  align-self: flex-end; /* Ensure the break-line is at the bottom */
+  align-self: flex-end; 
 }
 
 #h2 {
@@ -66,9 +65,9 @@ p {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 10%;
-  margin-left: 10%;
+  gap: 5%;
   margin-top: 15%;
+  
 }
 
 #sidebar-icon {
@@ -79,7 +78,6 @@ p {
 
 .sidebar-container.open{
   grid-row: 0;
-
 }
 
 
@@ -89,7 +87,11 @@ p {
 
 .options {
   display: flex;
+  flex-wrap: wrap;
   gap: 5%;
+  font-style: oblique;
+  
+  letter-spacing: 0.05em;
 }
 
 .options:hover {
@@ -115,11 +117,13 @@ p {
   grid-row: 2/11;
 }
 
-#startertxt {
+#startertxt p {
   margin-left: 10%;
-  font-size: 32px;
-  font-stretch: extra-expanded;
+  font-size: 24px;
+  
   opacity: 40%;
+  letter-spacing: 0.1em;
+
 }
 
 button {

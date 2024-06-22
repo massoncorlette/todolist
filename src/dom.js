@@ -42,7 +42,7 @@ export default function toggleSidebarButton() {
   homeContainer.appendChild(todoContainer);
   
   const todoText = document.createElement('p');
-  todoText.textContent = 'Todo';
+  todoText.textContent = 'All Tasks';
   todoContainer.appendChild(todoText);
 
   importantPNG.src = importantIcon;
