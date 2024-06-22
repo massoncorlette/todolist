@@ -42,10 +42,15 @@ function makeProject(title,notes,date) {
   };
 
   return {
-    addProject:addProject,
-    deleteProject:deleteProject
+    title,
+    notes,
+    date,
+    tasksArray,
+    complete,
+    addProject,
+    deleteProject
   };
-}
+};
 
 
 

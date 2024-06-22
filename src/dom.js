@@ -6,7 +6,7 @@ import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
 
 export default function toggleSidebarButton() {
-  const main = document.querySelector('main');
+  const main = document.getElementById('main-body');
   const sidebar = document.querySelector('.sidebar-container');
   const sidebarBtn = document.getElementById('sidebar-icon');
   const todoContainer = document.getElementById('todo');
@@ -27,7 +27,7 @@ export default function toggleSidebarButton() {
 
   btnElement.addEventListener('click', () => {
     sidebar.classList.toggle('open');
-    main.classList.toggle('full');
+    main.classList.toggle('main-body-full');
   });
 
   todoPNG.src = todoIcon;

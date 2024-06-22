@@ -62,5 +62,5 @@ sidebarCalendar();
     projects and what is completed
 
 
-
+Functionality: 
 
