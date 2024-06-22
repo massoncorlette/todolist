@@ -18,13 +18,17 @@ body {
 h1 {
   font-size: 42px;
   letter-spacing: -0.075em;
+  display: flex;
+  font-weight: bolder;
 }
 
 p {
   font-size: 20px;
-  opacity: 80%;
 }
 
+i {
+  opacity: 70%;
+}
 
 #break-line {
   display: flex;
@@ -32,6 +36,7 @@ p {
   width: 100%;
   background-color: #2196F3 !important; /* Ensure background color is set */
   grid-column: span 21;
+  grid-row: 21;
   align-self: flex-end; 
 }
 
@@ -40,6 +45,7 @@ p {
   font-size:30px;
   font-style: italic;
   height: 80px;
+  background-color: antiquewhite;
 }
 
 #header-container {
@@ -66,7 +72,7 @@ p {
   flex: 1;
   flex-direction: column;
   gap: 5%;
-  margin-top: 15%;
+  margin-top: 1px;
   
 }
 
@@ -74,6 +80,10 @@ p {
   position: absolute;
   margin: 0;
   left: 1%;
+}
+
+#todotxt {
+ color: rgb(0, 163, 163);
 }
 
 .sidebar-container.open{
@@ -90,7 +100,6 @@ p {
   flex-wrap: wrap;
   gap: 5%;
   font-style: oblique;
-  
   letter-spacing: 0.05em;
 }
 
