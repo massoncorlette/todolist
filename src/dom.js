@@ -1,4 +1,3 @@
-// dom.js
 import sidebarIcon from './icons/sidebar.svg';
 import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
@@ -8,6 +7,7 @@ import importantIcon from './icons/flag.png';
 export default function toggleSidebarButton() {
   const main = document.getElementById('main-body');
   const sidebar = document.querySelector('.sidebar-container');
+  const homeContainer = document.querySelector('.home-container');
   const sidebarBtn = document.getElementById('sidebar-icon');
   const todoContainer = document.getElementById('todo');
   const importantContainer = document.getElementById('important');
@@ -21,36 +21,59 @@ export default function toggleSidebarButton() {
   const completedPNG = document.createElement('img');
   
   btnSvg.src = sidebarIcon;
-
   btnElement.appendChild(btnSvg);
   sidebarBtn.appendChild(btnElement);
 
   btnElement.addEventListener('click', () => {
     sidebar.classList.toggle('open');
+    homeContainer.classList.toggle('open');
     main.classList.toggle('main-body-full');
+
+    if (!sidebar.contains(homeContainer)) {
+      sidebar.appendChild(homeContainer);
+    } else {
+      sidebar.removeChild(homeContainer);
+    }
   });
 
   todoPNG.src = todoIcon;
   todoPNG.classList.add('icons');
   todoContainer.appendChild(todoPNG);
-  sidebar.appendChild(todoContainer);
+  homeContainer.appendChild(todoContainer);
+  
+  const todoText = document.createElement('p');
+  todoText.textContent = 'Todo';
+  todoContainer.appendChild(todoText);
 
   importantPNG.src = importantIcon;
   importantPNG.classList.add('icons');
   importantContainer.appendChild(importantPNG);
-  sidebar.appendChild(importantContainer);
+  homeContainer.appendChild(importantContainer);
+  
+  let importantText = document.createElement('p');
+  importantText.textContent = 'Important';
+  importantContainer.appendChild(importantText);
 
   calendarPNG.src = calendarIcon;
   calendarPNG.classList.add('icons');
   calendarContainer.appendChild(calendarPNG);
-  sidebar.appendChild(calendarContainer);
+  homeContainer.appendChild(calendarContainer);
+  
+  const calendarText = document.createElement('p');
+  calendarText.textContent = 'Calendar';
+  calendarContainer.appendChild(calendarText);
 
   completedPNG.src = completedIcon;
   completedPNG.classList.add('icons');
   completedContainer.appendChild(completedPNG);
-  sidebar.appendChild(completedContainer);
-};
+  homeContainer.appendChild(completedContainer);
+  
+  const completedText = document.createElement('p');
+  completedText.textContent = 'Completed';
+  completedContainer.appendChild(completedText);
 
+  sidebar.appendChild(homeContainer);
+};
 
 
 
