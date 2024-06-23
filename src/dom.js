@@ -4,6 +4,8 @@ import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
 
+// npm run liveview script command to update liveview
+
 export default function toggleSidebarButton() {
   const main = document.getElementById('main-body');
   const body = document.querySelector('body');

@@ -26,6 +26,7 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html',
       inject: 'body',
+      favicon: './src/icons/schedule.png'
     }),
   ],
   devServer: {

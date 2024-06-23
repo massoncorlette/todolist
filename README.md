@@ -25,31 +25,57 @@ display upon DOMload
 Helpers.js
 
   projects[];
+  allTasks[];
 
-  addProject factory(title,notes, complete, date, delete add methods)
+  makeProject factory(title,notes, complete, date, delete add methods)
     this.tasksArray[];
 
-  addTask factory function(task,complete,delete and add methods)
+    function addProject
+    function deleteProject
 
-    
-/////////////
+
+  makeTask factory function(task,complete,important,+ delete and add methods)
+
+    function addTask
+      *push to project's tasksArray[], also allTasks[]
+    function deleteTask
+      *delete from project's tasksArray[], also allTasks[]
+    function editTask
+      *update task
+
+  function displayImportant()
+    importantTasks[];
+     *filter allTasks to put into importantTasks
+
+
+//////////////////////
 DOM.js
 toggleSidebarButton();   
   toggles sidebar 
 
+clearBody(); (Make's things more modular)
+  function to clear DOM in body sense I will be doing it alot
+
 newProject();
   'click' event listener addProject();
-    import addProject();
-      user inputs new project details
+    import makeProject();
+      user inputs new project title in sidebar
+      adds Project title and date to side bar, with edit delete 
+
+deleteProject();
+  'click' event listener deleteProject();
+    import deleteProject();
+      delete option clicked in sidebar
+      remove from array and remove from sidebar
+      remove projects tasks from allTasks[]
 
 projectDetails();
   'click' event listener for every project in sidebar
    displays project details(tasks, notes, date) in body
 
 newTask();
-  'click' event listener to add task
-   import addProject.addTasks();
-   displays task details in list
+  'click' event listener to add task in body
+   displays task details in body for project
 
 sidebarAllTasks();
     'click' event to display all tasks in body
@@ -62,5 +88,8 @@ sidebarCalendar();
     projects and what is completed
 
 
-Functionality: 
+Functionality: Will display in body upon what option is clicked on sidebar. 
+I want to aim to use a calendar library. All projects and tasks should 
+be deleted and added in their respective arrays. Need for projects and tasks to be saved on clients computer upon reload. 
+Have a edit option for every task and project. 
 

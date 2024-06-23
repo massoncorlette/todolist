@@ -1,16 +1,11 @@
 // logic goes here
 let projects = [];
-
-function makeUser(name, age) {
-  return {
-    name, 
-    age,  
-  };
-};
+let allTasks = [];
 
 //factory functions so each project & task has methods and properties
 function makeTask(task) {
   this.task = task;
+  this.important = false;
   this.complete = false;
 
   function addTask(task, tasksArray) {
@@ -23,9 +18,10 @@ function makeTask(task) {
   return {
     addTask:addTask,
     deleteTask:deleteTask
-  }
-}
+  };
+};
 
+//each project will have its own task array
 function makeProject(title,notes,date) {
   this.title = title;
   this.notes = notes;
@@ -51,6 +47,10 @@ function makeProject(title,notes,date) {
     deleteProject
   };
 };
+
+function displayImportant() {
+  let importantTasks = [];
+}
 
 
 
