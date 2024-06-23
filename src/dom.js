@@ -6,6 +6,7 @@ import importantIcon from './icons/flag.png';
 
 export default function toggleSidebarButton() {
   const main = document.getElementById('main-body');
+  const body = document.querySelector('body');
   const sidebar = document.querySelector('.sidebar-container');
   const homeContainer = document.querySelector('.home-container');
   const sidebarBtn = document.getElementById('sidebar-icon');
@@ -29,10 +30,10 @@ export default function toggleSidebarButton() {
     homeContainer.classList.toggle('open');
     main.classList.toggle('main-body-full');
 
-    if (!sidebar.contains(homeContainer)) {
-      sidebar.appendChild(homeContainer);
+    if (!body.contains(sidebar)) {
+      body.appendChild(sidebar);
     } else {
-      sidebar.removeChild(homeContainer);
+      body.removeChild(sidebar);
     }
   });
 
