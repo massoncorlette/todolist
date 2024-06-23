@@ -4,6 +4,7 @@
 
 :root {
   --primary-color: rgb(0, 163, 163);
+  --secondary-color: #cccaca;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
   font-variation-settings: "slnt" 0;
 }
 
+
 h1 {
   font-size: 42px;
   letter-spacing: -0.075em;
@@ -31,8 +33,9 @@ p {
 }
 
 i {
-  opacity: 70%;
+  color: rgba(0, 0, 0, 0.5)
 }
+
 #break-line {
   display: flex;
   height: 1px;
@@ -104,6 +107,7 @@ i {
 
 #add-container {
   display: flex;
+  gap: 10%;
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -112,18 +116,16 @@ i {
 
 #add-container:hover {
   background-color: var(--primary-color);
+  cursor: pointer;
 }
 
 #add-btn {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-image: url('icons/plus-box.svg');
   cursor: pointer;
 }
 
-#add-btn:hover ~ #add-container {
-  background-color: green;
-}
 
 #sidebar-icon {
   position: absolute;
@@ -153,7 +155,7 @@ i {
 }
 
 .options:hover {
-  background-color: #cccaca;
+  background-color: var(--secondary-color) ;
   cursor: pointer;
 }
 
