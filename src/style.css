@@ -2,6 +2,10 @@
   border: 0px solid red;
 }
 
+:root {
+  --primary-color: rgb(0, 163, 163);
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -29,7 +33,6 @@ p {
 i {
   opacity: 70%;
 }
-
 #break-line {
   display: flex;
   height: 1px;
@@ -39,24 +42,6 @@ i {
   grid-row: 21;
   align-self: flex-end; 
 }
-
-#h2, #h3 {
-  font-size:30px;
-  font-style: italic;
-  height: 80px;
-  background-color: antiquewhite;
-  grid-column: span 11;
-}
-
-#h2 {
-  grid-row: 1/3;
-}
-
-#h3 {
-  grid-row:11/14;
-}
-
-
 
 #header-container {
   display: grid;
@@ -77,16 +62,67 @@ i {
   grid-template-columns: repeat(10,1fr);
   grid-template-rows: repeat(20,1fr);
   min-width: 190px;
-  z-index: -1;
+
 }
 
+#h2, #h3 {
+  font-size:30px;
+  font-style: italic;
+  height: 80px;
+  background-color: antiquewhite;
+  grid-column: span 11;
+}
+
+#h2 {
+  grid-row: 1/3;
+}
+
+#h3 {
+  grid-row:11/13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .home-container {
+  grid-row: 3/10;
+}
+
+#project-container {
+  grid-row: 13/21;
+  
+}
+
+#project-container, .home-container {
   display: flex;
   flex-direction: column;
   gap: 1%;
   margin-top: 3%;
   grid-column: 1/11;
-  grid-row: 3/10;
+}
+
+#add-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+#add-container:hover {
+  background-color: var(--primary-color);
+}
+
+#add-btn {
+  width: 40px;
+  height: 40px;
+  background-image: url('icons/plus-box.svg');
+  cursor: pointer;
+}
+
+#add-btn:hover ~ #add-container {
+  background-color: green;
 }
 
 #sidebar-icon {
@@ -96,7 +132,7 @@ i {
 }
 
 #todotxt {
- color: rgb(0, 163, 163);
+ color: var(--primary-color);
 }
 
 .sidebar-container.open{
@@ -129,6 +165,7 @@ i {
   grid-column: 4/21;
   grid-row: 2/11;
   background-color: #dfdfdf;
+  z-index: 1;
 }
 
 
@@ -142,7 +179,6 @@ i {
 #startertxt p {
   margin-left: 10%;
   font-size: 24px;
-  
   opacity: 40%;
   letter-spacing: 0.1em;
 
