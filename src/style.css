@@ -110,8 +110,8 @@ i {
   gap: 10%;
   align-items: center;
   justify-content: center;
-  background-color: white;
   transition: background-color 0.3s ease;
+  
 }
 
 #add-container:hover {
@@ -128,6 +128,20 @@ i {
 
 #projectInput {
   padding: 10px;
+  height: 42px;
+  width: 0px;
+  background-color: var(--secondary-color);
+  outline-style: none;
+  font-size: 20px;
+  transition: width 0.3s;
+}
+
+#projectInput.focus {
+  width: 100%;
+}
+
+input[type="text"] {
+  height: 40px;
 }
 
 

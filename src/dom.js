@@ -86,19 +86,27 @@ export default function toggleSidebarButton() {
 // making sure to focus on DOM only, not logic
 export function newProject() {
   let addProjectBtn = document.getElementById('add-container');
+  let projectInput = document.createElement('input');
+  projectInput.type = 'text';
+  projectInput.id = 'projectInput';
+  const originalContent = addProjectBtn.innerHTML;
 
   addProjectBtn.addEventListener('click', () => {
-    let projectInput = document.createElement('input');
-    projectInput.type = 'text';
-    projectInput.id = 'projectInput';
-    while (addProjectBtn.firstChild) {
-      addProjectBtn.removeChild(addProjectBtn.firstChild);
-    }
-    addProjectBtn.appendChild(projectInput);
+      addProjectBtn.innerHTML = '';
+      addProjectBtn.appendChild(projectInput);
+      projectInput.focus();
+      projectInput.classList.add('focus');
+      
+      projectInput.addEventListener('focus', () => {
+        projectInput.classList.add('focus');
+      })
 
+      projectInput.addEventListener('blur', () => {
+        addProjectBtn.innerHTML = originalContent;
+    });
   });
-}
-
+};
+ 
 
 
 //export default function projectDetails(); {
