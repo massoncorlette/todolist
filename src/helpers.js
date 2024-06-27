@@ -3,7 +3,7 @@ let projects = [];
 let allTasks = [];
 
 //factory functions so each project & task has methods and properties
-function makeTask(task) {
+export default function makeTask(task) {
   this.task = task;
   this.important = false;
   this.complete = false;
@@ -22,7 +22,7 @@ function makeTask(task) {
 };
 
 //each project will have its own task array
-function makeProject(title,notes,date) {
+export function makeProject(title,notes,date) {
   this.title = title;
   this.notes = notes;
   this.date = date;
@@ -48,9 +48,16 @@ function makeProject(title,notes,date) {
   };
 };
 
-function displayImportant() {
+export function displayImportant() {
   let importantTasks = [];
-}
+
+  for (let i = 0; i < allTasks.length; i++) {
+    if (allTasks[i].tasksArray.important === true) {
+      importantTasks.push(allTasks[i]);
+    }
+  };
+  return importantTasks;
+};
 
 
 

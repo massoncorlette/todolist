@@ -3,13 +3,16 @@ import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
+import {makeProject, makeTask, displayImportant} from './helpers';
+
 
 // npm run liveview script command to update liveview
 
+const main = document.getElementById('main-body');
+const body = document.querySelector('body');
+const sidebar = document.querySelector('.sidebar-container');
+
 export default function toggleSidebarButton() {
-  const main = document.getElementById('main-body');
-  const body = document.querySelector('body');
-  const sidebar = document.querySelector('.sidebar-container');
   const homeContainer = document.querySelector('.home-container');
   const sidebarBtn = document.getElementById('sidebar-icon');
   const todoContainer = document.getElementById('todo');
@@ -81,7 +84,20 @@ export default function toggleSidebarButton() {
 
 
 // making sure to focus on DOM only, not logic
-//export default function newProject(); {
+export function newProject() {
+  let addProjectBtn = document.getElementById('add-container');
+
+  addProjectBtn.addEventListener('click', () => {
+    let projectInput = document.createElement('input');
+    projectInput.type = 'text';
+    projectInput.id = 'projectInput';
+    while (addProjectBtn.firstChild) {
+      addProjectBtn.removeChild(addProjectBtn.firstChild);
+    }
+    addProjectBtn.appendChild(projectInput);
+
+  });
+}
 
 
 

@@ -126,6 +126,10 @@ i {
   cursor: pointer;
 }
 
+#projectInput {
+  padding: 10px;
+}
+
 
 #sidebar-icon {
   position: absolute;
