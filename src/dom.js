@@ -11,6 +11,7 @@ import {makeProject, makeTask, displayImportant} from './helpers';
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
+const addBtn = document.querySelector('#add-btn');
 
 export default function toggleSidebarButton() {
   const homeContainer = document.querySelector('.home-container');
@@ -92,17 +93,25 @@ export function newProject() {
   const originalContent = addProjectBtn.innerHTML;
 
   addProjectBtn.addEventListener('click', () => {
+      const btnDiv = document.createElement('div');
+      btnDiv.id = 'btnDiv';
       addProjectBtn.innerHTML = '';
       addProjectBtn.appendChild(projectInput);
+      addProjectBtn.appendChild(addBtn);
       projectInput.focus();
       projectInput.classList.add('focus');
+      addProjectBtn.classList.add('active');
+      btnDiv.appendChild(addBtn);
+      addProjectBtn.appendChild(btnDiv);
       
       projectInput.addEventListener('focus', () => {
         projectInput.classList.add('focus');
-      })
+      });
 
       projectInput.addEventListener('blur', () => {
         addProjectBtn.innerHTML = originalContent;
+        addProjectBtn.classList.remove('active');
+        projectInput.classList.remove('focus');
     });
   });
 };

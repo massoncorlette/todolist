@@ -114,6 +114,14 @@ i {
   
 }
 
+#add-container.active {
+  background-color: var(--secondary-color);
+}
+
+#add-container.active:hover {
+  background-color: var(--secondary-color);
+}
+
 #add-container:hover {
   background-color: var(--primary-color);
   cursor: pointer;
@@ -126,6 +134,15 @@ i {
   cursor: pointer;
 }
 
+#btnDiv {
+  display: flex;
+  flex: 1;
+  height: 60px;
+  width: 40px;
+  align-items: center;
+}
+
+
 #projectInput {
   padding: 10px;
   height: 42px;
@@ -133,15 +150,17 @@ i {
   background-color: var(--secondary-color);
   outline-style: none;
   font-size: 20px;
-  transition: width 0.3s;
+  transition: width 1s;
+  border-bottom: 1px black;
 }
 
 #projectInput.focus {
-  width: 100%;
+  width: 90%;
 }
 
 input[type="text"] {
   height: 40px;
+ 
 }
 
 
@@ -201,7 +220,6 @@ input[type="text"] {
   font-size: 24px;
   opacity: 40%;
   letter-spacing: 0.1em;
-
 }
 
 button {
