@@ -11,7 +11,6 @@ import {makeProject, makeTask, displayImportant, projects, allTasks} from './hel
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
-const addBtn = document.querySelector('#add-btn');
 
 export default function toggleSidebarButton() {
   const homeContainer = document.querySelector('.home-container');
@@ -86,44 +85,39 @@ export default function toggleSidebarButton() {
 export function newProject() {
   let addProjectBtn = document.getElementById('add-container');
   let projectInput = document.createElement('input');
+  let cancelBtn = document.createElement('button');
+  cancelBtn.id = 'cancel-btn';
+  const addBtn = document.querySelector('#add-btn');
+  const btnDiv = document.createElement('div');
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
-  let projectName = '';
-  const originalContent = addProjectBtn.innerHTML;
-
-  function clickableAddProject() {
-    addProjectBtn.removeEventListener('click', clickableAddProject)
-  }
-  
 
   addProjectBtn.addEventListener('click', () => {
-      clickableAddProject();
-      const btnDiv = document.createElement('div');
-      btnDiv.id = 'btnDiv';
-      addProjectBtn.innerHTML = '';
-      addProjectBtn.appendChild(projectInput);
-      addProjectBtn.appendChild(addBtn);
-      projectInput.focus();
+    btnDiv.id = 'btnDiv';
+    addProjectBtn.innerHTML = '';
+    addProjectBtn.appendChild(projectInput);
+    addProjectBtn.appendChild(addBtn);
+    projectInput.focus();
+    projectInput.classList.add('focus');
+    addProjectBtn.classList.add('active');
+    btnDiv.appendChild(addBtn);
+    btnDiv.appendChild(cancelBtn);
+    addProjectBtn.appendChild(btnDiv);
+    
+    projectInput.addEventListener('focus', () => {
       projectInput.classList.add('focus');
-      addProjectBtn.classList.add('active');
-      btnDiv.appendChild(addBtn);
-      addProjectBtn.appendChild(btnDiv);
-      
-      projectInput.addEventListener('focus', () => {
-        projectInput.classList.add('focus');;
-      });
-
-      projectInput.addEventListener('blur', () => {
-        addProjectBtn.innerHTML = originalContent;
-        addProjectBtn.classList.remove('active');
-        projectInput.classList.remove('focus');
+    });
+    
+    addBtn.addEventListener('click', () => {
+      const projectName = projectInput.value;
+      if (projectName) {
+        console.log("Project added:", projectName);
+      }
     });
   });
+
 };
 
-
-
- 
 
 
 //export default function projectDetails(); {

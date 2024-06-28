@@ -124,23 +124,21 @@ i {
 }
 
 #add-btn {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background-image: url('icons/plus-box.svg');
   cursor: pointer;
- 
 }
 
-#add-btn:hover {
+#cancel-btn {
+  width: 30px;
+  height: 30px;
+  background-image: url('icons/close-box.svg');
+  cursor: pointer;
+}
+
+#add-btn:hover, #cancel-btn:hover {
 scale: 1.1;
-}
-
-#btnDiv {
-  display: flex;
-  flex: 1;
-  height: 60px;
-  width: 40px;
-  align-items: center;
 }
 
 #projectInput {
