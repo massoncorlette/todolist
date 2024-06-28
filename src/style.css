@@ -107,24 +107,22 @@ i {
 
 #add-container {
   display: flex;
-  gap: 10%;
+  gap: 0%;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
   
 }
 
-#add-container.active {
-  background-color: var(--secondary-color);
-}
-
 #add-container.active:hover {
-  background-color: var(--secondary-color);
+  background-color: white;
+  scale: 1;
 }
 
 #add-container:hover {
   background-color: var(--primary-color);
   cursor: pointer;
+  scale: 1.05;
 }
 
 #add-btn {
@@ -147,20 +145,20 @@ i {
   padding: 10px;
   height: 42px;
   width: 0px;
-  background-color: var(--secondary-color);
+
   outline-style: none;
   font-size: 20px;
   transition: width 1s;
-  border-bottom: 1px black;
+  background-color: rgb(231, 230, 230);
 }
 
 #projectInput.focus {
-  width: 90%;
+  width: 100%;
 }
 
 input[type="text"] {
   height: 40px;
- 
+  border-bottom: 1px black;
 }
 
 
