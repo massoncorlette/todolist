@@ -3,7 +3,7 @@ import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
-import {makeProject, makeTask, displayImportant} from './helpers';
+import {makeProject, makeTask, displayImportant, projects, allTasks} from './helpers';
 
 
 // npm run liveview script command to update liveview
@@ -82,17 +82,22 @@ export default function toggleSidebarButton() {
   sidebar.appendChild(homeContainer);
 };
 
-
-
 // making sure to focus on DOM only, not logic
 export function newProject() {
   let addProjectBtn = document.getElementById('add-container');
   let projectInput = document.createElement('input');
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
+  let projectName = '';
   const originalContent = addProjectBtn.innerHTML;
 
+  function clickableAddProject() {
+    addProjectBtn.removeEventListener('click', clickableAddProject)
+  }
+  
+
   addProjectBtn.addEventListener('click', () => {
+      clickableAddProject();
       const btnDiv = document.createElement('div');
       btnDiv.id = 'btnDiv';
       addProjectBtn.innerHTML = '';
@@ -105,7 +110,7 @@ export function newProject() {
       addProjectBtn.appendChild(btnDiv);
       
       projectInput.addEventListener('focus', () => {
-        projectInput.classList.add('focus');
+        projectInput.classList.add('focus');;
       });
 
       projectInput.addEventListener('blur', () => {
@@ -115,6 +120,9 @@ export function newProject() {
     });
   });
 };
+
+
+
  
 
 
