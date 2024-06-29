@@ -92,6 +92,7 @@ export function newProject() {
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
 
+
   addProjectBtn.addEventListener('click', () => {
     btnDiv.id = 'btnDiv';
     addProjectBtn.innerHTML = '';
@@ -113,6 +114,13 @@ export function newProject() {
       if (projectName) {
         console.log("Project added:", projectName);
       }
+    });
+    cancelBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      addProjectBtn.innerHTML = '<p>Add project</p>'; 
+      addProjectBtn.appendChild(addBtn);
+      addProjectBtn.classList.remove('active');
+      projectInput.classList.remove('focus');
     });
   });
 
