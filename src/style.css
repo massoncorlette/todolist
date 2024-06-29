@@ -109,7 +109,7 @@ i {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
-  
+
 }
 
 #add-container.active:hover {
@@ -158,6 +158,12 @@ input[type="text"] {
   height: 20px;
   box-shadow: inset 1px 1px 5px rgba(46, 43, 43, 0.425);
   border-style: none;
+}
+
+.sidebarProjectsContainer {
+  display: flex;
+  height: 10%;
+  width: 100%;
 }
 
 
