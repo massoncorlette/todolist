@@ -11,7 +11,6 @@ import {makeProject, makeTask, displayImportant, projects, allTasks} from './hel
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
-const sidebarProjectContainer = document.querySelector('#project-container');
 
 export default function toggleSidebarButton() {
   const homeContainer = document.querySelector('.home-container');
@@ -79,7 +78,30 @@ export default function toggleSidebarButton() {
   completedText.textContent = 'Completed';
   completedContainer.appendChild(completedText);
 
+  const projectContainer = document.createElement('div');
+projectContainer.id = 'project-container';
+
+const heading = document.createElement('div');
+heading.id = 'h3';
+heading.textContent = 'Projects';
+projectContainer.appendChild(heading);
+
+
+const addContainer = document.createElement('div');
+addContainer.id = 'add-container';
+
+const addParagraph = document.createElement('p');
+addParagraph.textContent = 'Add project';
+addContainer.appendChild(addParagraph);
+
+const addButton = document.createElement('button');
+addButton.id = 'add-btn';
+addContainer.appendChild(addButton);
+
+projectContainer.appendChild(addContainer);
+
   sidebar.appendChild(homeContainer);
+  sidebar.appendChild(projectContainer);
 };
 
 // making sure to focus on DOM only, not logic
@@ -112,6 +134,7 @@ export function newProject() {
     });
     
     addBtn.addEventListener('click', (event) => {
+      const sidebarProjectContainer = document.querySelector('#project-container');
       if (projectInput.value) {
         const projectName = projectInput.value;
         const newProjectAdd = document.createElement('div');
