@@ -112,16 +112,18 @@ export function newProject() {
     });
     
     addBtn.addEventListener('click', (event) => {
-      const projectName = projectInput.value;
-      const newProjectAdd = document.createElement('div');
-      newProjectAdd.classList.add('addedProjects');
-      const projectNameTxt = document.createElement('p');
-      
-      projectNameTxt.innerHTML = projectName;
-      newProjectAdd.appendChild(projectNameTxt);
-      sidebarProjectContainer.appendChild(newProjectAdd);
-      clearProjectAdd();
-      event.stopPropagation();
+      if (projectInput.value) {
+        const projectName = projectInput.value;
+        const newProjectAdd = document.createElement('div');
+        newProjectAdd.classList.add('addedProjects');
+        const projectNameTxt = document.createElement('p');
+        
+        projectNameTxt.innerHTML = projectName;
+        newProjectAdd.appendChild(projectNameTxt);
+        sidebarProjectContainer.appendChild(newProjectAdd);
+        clearProjectAdd();
+        event.stopPropagation();
+      }
     });
     cancelBtn.addEventListener('click', (event) => {
       clearProjectAdd();
