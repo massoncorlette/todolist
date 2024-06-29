@@ -92,9 +92,10 @@ export function newProject() {
   const btnDiv = document.createElement('div');
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
+  projectInput.placeholder = "Enter project name";
 
 
-  addProjectBtn.addEventListener('click', () => {
+  addProjectBtn.addEventListener('click', (event) => {
     btnDiv.id = 'btnDiv';
     addProjectBtn.innerHTML = '';
     addProjectBtn.appendChild(projectInput);
@@ -105,7 +106,7 @@ export function newProject() {
     btnDiv.appendChild(addBtn);
     btnDiv.appendChild(cancelBtn);
     addProjectBtn.appendChild(btnDiv);
-    
+    event.stopPropagation();
     projectInput.addEventListener('focus', () => {
       projectInput.classList.add('focus');
     });
@@ -113,6 +114,7 @@ export function newProject() {
     addBtn.addEventListener('click', (event) => {
       const projectName = projectInput.value;
       const newProjectAdd = document.createElement('div');
+      newProjectAdd.classList.add('addedProjects');
       const projectNameTxt = document.createElement('p');
       
       projectNameTxt.innerHTML = projectName;
