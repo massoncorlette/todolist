@@ -1,5 +1,4 @@
-
-
+* {border: 1px Solid red}
 :root {
   --primary-color: rgb(0, 163, 163);
   --secondary-color: #cccaca;
@@ -18,7 +17,6 @@ body {
   font-style: normal;
   font-variation-settings: "slnt" 0;
 }
-
 
 h1 {
   font-size: 42px;
@@ -85,14 +83,12 @@ i {
   align-items: center;
 }
 
-
 .home-container {
   grid-row: 3/10;
 }
 
 #project-container {
   grid-row: 13/21;
-  
 }
 
 #project-container, .home-container {
@@ -218,11 +214,16 @@ input[type="text"] {
   grid-row: 2/11;
 }
 
+
 #startertxt p {
   margin-left: 10%;
   font-size: 24px;
   opacity: 40%;
   letter-spacing: 0.1em;
+}
+
+#startertxt:hover {
+  cursor: default;
 }
 
 button {
@@ -255,7 +256,6 @@ button:hover {
   position: absolute;
   right: 2%;
 }
-
 
 .switch {
   position: relative;

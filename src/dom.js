@@ -111,14 +111,9 @@ export function newProject() {
     });
     
     addBtn.addEventListener('click', (event) => {
-      const projectName = projectInput.value;
-      const newProjectAdd = document.createElement('div');
-      const projectNameTxt = document.createElement('p');
-      
-      projectNameTxt.innerHTML = projectName;
-      newProjectAdd.appendChild(projectNameTxt);
-      sidebarProjectContainer.appendChild(newProjectAdd);
-      clearProjectAdd();
+      if (projectInput.value) {
+        addBtnClick();
+      }
       event.stopPropagation();
     });
     cancelBtn.addEventListener('click', (event) => {
@@ -133,6 +128,18 @@ export function newProject() {
     addProjectBtn.classList.remove('active');
     projectInput.classList.remove('focus');
     projectInput.value = '';
+  }
+
+  function addBtnClick() {
+    const projectName = projectInput.value;
+    const newProjectAdd = document.createElement('div');
+    const projectNameTxt = document.createElement('p');
+    
+    projectNameTxt.innerHTML = projectName;
+    newProjectAdd.appendChild(projectNameTxt);
+    sidebarProjectContainer.appendChild(newProjectAdd);
+    clearProjectAdd();
+    addBtn.removeEventListener('click', (addBtnClick));
   }
 };
 
