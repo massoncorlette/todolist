@@ -1,6 +1,9 @@
+export {projects, allTasks, importantTasks};
+
 // logic goes here
 let projects = [];
 let allTasks = [];
+let importantTasks = [];
 
 //factory functions so each project & task has methods and properties
 export default function makeTask(task) {
@@ -49,8 +52,6 @@ export function makeProject(title,notes,date) {
 };
 
 export function displayImportant() {
-  let importantTasks = [];
-
   for (let i = 0; i < allTasks.length; i++) {
     if (allTasks[i].tasksArray.important === true) {
       importantTasks.push(allTasks[i]);

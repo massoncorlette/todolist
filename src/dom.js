@@ -3,7 +3,7 @@ import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
-import {makeProject, makeTask, displayImportant, projects, allTasks} from './helpers';
+import {makeProject, makeTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
 
 
 // npm run liveview script command to update liveview
@@ -175,8 +175,17 @@ export function projectDetails() {
   allProject.forEach(project => {
     project.addEventListener('click', () => {
       clearMain();
+      const projectName  = project.innerHTML;
+      displayDetails(projectName);
     });
   });
+
+  function displayDetails(projectName) {
+    const projectInfoContainer = document.createElement('div');
+    const title = document.createElement('p');
+    title.innerHTML = projectName;
+    return title;
+  }
 };
 
 
