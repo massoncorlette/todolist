@@ -12,6 +12,12 @@ const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
 
+function clearMain() {
+  while (main.firstChild) {
+    main.removeChild(main.firstChild);
+  }
+};
+
 export default function toggleSidebarButton() {
   const homeContainer = document.querySelector('.home-container');
   const sidebarBtn = document.getElementById('sidebar-icon');
@@ -162,6 +168,17 @@ export function newProject() {
     projectInput.value = '';
   }
 };
+
+export function projectDetails() {
+  const allProject = document.querySelectorAll('#project-container');
+
+  allProject.forEach(project => {
+    project.addEventListener('click', () => {
+      clearMain();
+    });
+  });
+};
+
 
 
 
