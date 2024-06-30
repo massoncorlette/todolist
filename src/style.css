@@ -55,9 +55,6 @@ i {
 }
 
 .sidebar-container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   grid-row: 2 / 11;
   grid-column: 1 / 4;
   min-width: 190px;
