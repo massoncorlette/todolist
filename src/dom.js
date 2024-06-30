@@ -11,7 +11,12 @@ import {makeProject, makeTask, displayImportant, projects, allTasks} from './hel
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
-const sidebarProjectContainer = document.querySelector('#project-container');
+
+function clearMain() {
+  while (main.firstChild) {
+    main.removeChild(main.firstChild);
+  }
+};
 
 export default function toggleSidebarButton() {
   const homeContainer = document.querySelector('.home-container');
@@ -79,7 +84,30 @@ export default function toggleSidebarButton() {
   completedText.textContent = 'Completed';
   completedContainer.appendChild(completedText);
 
+  const projectContainer = document.createElement('div');
+projectContainer.id = 'project-container';
+
+const heading = document.createElement('div');
+heading.id = 'h3';
+heading.textContent = 'Projects';
+projectContainer.appendChild(heading);
+
+
+const addContainer = document.createElement('div');
+addContainer.id = 'add-container';
+
+const addParagraph = document.createElement('p');
+addParagraph.textContent = 'Add project';
+addContainer.appendChild(addParagraph);
+
+const addButton = document.createElement('button');
+addButton.id = 'add-btn';
+addContainer.appendChild(addButton);
+
+projectContainer.appendChild(addContainer);
+
   sidebar.appendChild(homeContainer);
+  sidebar.appendChild(projectContainer);
 };
 
 // making sure to focus on DOM only, not logic
@@ -92,9 +120,10 @@ export function newProject() {
   const btnDiv = document.createElement('div');
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
+  projectInput.placeholder = "Enter project name";
 
 
-  addProjectBtn.addEventListener('click', () => {
+  addProjectBtn.addEventListener('click', (event) => {
     btnDiv.id = 'btnDiv';
     addProjectBtn.innerHTML = '';
     addProjectBtn.appendChild(projectInput);
@@ -105,16 +134,25 @@ export function newProject() {
     btnDiv.appendChild(addBtn);
     btnDiv.appendChild(cancelBtn);
     addProjectBtn.appendChild(btnDiv);
-    
+    event.stopPropagation();
     projectInput.addEventListener('focus', () => {
       projectInput.classList.add('focus');
     });
     
     addBtn.addEventListener('click', (event) => {
+      const sidebarProjectContainer = document.querySelector('#project-container');
       if (projectInput.value) {
-        addBtnClick();
+        const projectName = projectInput.value;
+        const newProjectAdd = document.createElement('div');
+        newProjectAdd.classList.add('addedProjects');
+        const projectNameTxt = document.createElement('p');
+        
+        projectNameTxt.innerHTML = projectName;
+        newProjectAdd.appendChild(projectNameTxt);
+        sidebarProjectContainer.appendChild(newProjectAdd);
+        clearProjectAdd();
+        event.stopPropagation();
       }
-      event.stopPropagation();
     });
     cancelBtn.addEventListener('click', (event) => {
       clearProjectAdd();
@@ -129,19 +167,18 @@ export function newProject() {
     projectInput.classList.remove('focus');
     projectInput.value = '';
   }
-
-  function addBtnClick() {
-    const projectName = projectInput.value;
-    const newProjectAdd = document.createElement('div');
-    const projectNameTxt = document.createElement('p');
-    
-    projectNameTxt.innerHTML = projectName;
-    newProjectAdd.appendChild(projectNameTxt);
-    sidebarProjectContainer.appendChild(newProjectAdd);
-    clearProjectAdd();
-    addBtn.removeEventListener('click', (addBtnClick));
-  }
 };
+
+export function projectDetails() {
+  const allProject = document.querySelectorAll('#project-container');
+
+  allProject.forEach(project => {
+    project.addEventListener('click', () => {
+      clearMain();
+    });
+  });
+};
+
 
 
 

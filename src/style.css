@@ -6,8 +6,9 @@
 }
 
 body {
-  height: 100vh;
-  margin: 0;
+  min-height: 100vh;
+  max-height: 100%;
+  margin: 2px;;
   display: grid;
   grid-template-columns: repeat(20, 5%);
   grid-template-rows: repeat(10, 10%);
@@ -37,7 +38,7 @@ i {
   display: flex;
   height: 1px;
   width: 100%;
-  background-color: #2196F3 !important; /* Ensure background color is set */
+  background-color: #2196F3 !important; 
   grid-column: span 21;
   grid-row: 21;
   align-self: flex-end; 
@@ -54,20 +55,18 @@ i {
 }
 
 .sidebar-container {
-  display: grid;
-  flex-direction: column;
+  display: flex;
   flex: 1;
+  flex-direction: column;
   grid-row: 2 / 11;
   grid-column: 1 / 4;
-  grid-template-columns: repeat(10,1fr);
-  grid-template-rows: repeat(20,1fr);
   min-width: 190px;
 }
 
 #h2, #h3 {
   font-size:30px;
   font-style: italic;
-  height: 80px;
+  min-height: 80px;
   background-color: antiquewhite;
   grid-column: span 11;
 }
@@ -83,19 +82,11 @@ i {
   align-items: center;
 }
 
-.home-container {
-  grid-row: 3/10;
-}
-
-#project-container {
-  grid-row: 13/21;
-}
 
 #project-container, .home-container {
   display: flex;
   flex-direction: column;
   gap: 1%;
-  margin-top: 3%;
   grid-column: 1/11;
 }
 
@@ -158,8 +149,17 @@ input[type="text"] {
 
 .sidebarProjectsContainer {
   display: flex;
-  height: 10%;
   width: 100%;
+}
+
+.addedProjects {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.addedProjects:hover {
+  cursor: pointer;
 }
 
 
