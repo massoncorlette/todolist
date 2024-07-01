@@ -7,10 +7,12 @@ import {makeProject, makeTask, displayImportant, projects, allTasks, importantTa
 
 
 // npm run liveview script command to update liveview
+// making sure to focus on DOM only, not logic
 
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
+
 
 function clearMain() {
   while (main.firstChild) {
@@ -85,32 +87,32 @@ export default function toggleSidebarButton() {
   completedContainer.appendChild(completedText);
 
   const projectContainer = document.createElement('div');
-projectContainer.id = 'project-container';
+  projectContainer.id = 'project-container';
 
-const heading = document.createElement('div');
-heading.id = 'h3';
-heading.textContent = 'Projects';
-projectContainer.appendChild(heading);
+  const heading = document.createElement('div');
+  heading.id = 'h3';
+  heading.textContent = 'Projects';
+  projectContainer.appendChild(heading);
 
 
-const addContainer = document.createElement('div');
-addContainer.id = 'add-container';
+  const addContainer = document.createElement('div');
+  addContainer.id = 'add-container';
 
-const addParagraph = document.createElement('p');
-addParagraph.textContent = 'Add project';
-addContainer.appendChild(addParagraph);
+  const addParagraph = document.createElement('p');
+  addParagraph.textContent = 'Add project';
+  addContainer.appendChild(addParagraph);
 
-const addButton = document.createElement('button');
-addButton.id = 'add-btn';
-addContainer.appendChild(addButton);
+  const addButton = document.createElement('button');
+  addButton.id = 'add-btn';
+  addContainer.appendChild(addButton);
 
-projectContainer.appendChild(addContainer);
+  projectContainer.appendChild(addContainer);
 
   sidebar.appendChild(homeContainer);
   sidebar.appendChild(projectContainer);
 };
 
-// making sure to focus on DOM only, not logic
+
 export function newProject() {
   let addProjectBtn = document.getElementById('add-container');
   let projectInput = document.createElement('input');
@@ -141,6 +143,8 @@ export function newProject() {
     
     addBtn.addEventListener('click', (event) => {
       const sidebarProjectContainer = document.querySelector('#project-container');
+      const allProjects = document.querySelector('#allProjects');
+      
       if (projectInput.value) {
         const projectName = projectInput.value;
         const newProjectAdd = document.createElement('div');
@@ -149,11 +153,19 @@ export function newProject() {
         
         projectNameTxt.innerHTML = projectName;
         newProjectAdd.appendChild(projectNameTxt);
-        sidebarProjectContainer.appendChild(newProjectAdd);
+        allProjects.appendChild(newProjectAdd);
+        sidebarProjectContainer.appendChild(allProjects);
+
+        newProjectAdd.addEventListener('click', () => {
+          let projectTxt = newProjectAdd.innerText;
+          projectDetails(projectTxt);
+        });
+    
         clearProjectAdd();
         event.stopPropagation();
       }
     });
+    
     cancelBtn.addEventListener('click', (event) => {
       clearProjectAdd();
       event.stopPropagation();
@@ -169,23 +181,15 @@ export function newProject() {
   }
 };
 
-export function projectDetails() {
-  const allProject = document.querySelectorAll('#project-container');
+export function projectDetails(project) {
+  clearMain();
+  
+  let projectInfoContainer = document.createElement('div');
+  let title = document.createElement('p');
+  title.innerText = project;
+  projectInfoContainer.appendChild(title);
+  main.appendChild(projectInfoContainer);
 
-  allProject.forEach(project => {
-    project.addEventListener('click', () => {
-      clearMain();
-      const projectName  = project.innerHTML;
-      displayDetails(projectName);
-    });
-  });
-
-  function displayDetails(projectName) {
-    const projectInfoContainer = document.createElement('div');
-    const title = document.createElement('p');
-    title.innerHTML = projectName;
-    return title;
-  }
 };
 
 

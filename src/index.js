@@ -8,7 +8,6 @@ import { newProject, projectDetails } from './dom.js';
 document.addEventListener("DOMContentLoaded", () => {
   toggleSidebarButton(sidebarIcon);
   newProject();
-  projectDetails();
   console.log("test");
 });
 
