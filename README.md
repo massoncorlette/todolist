@@ -73,9 +73,12 @@ projectDetails();
   'click' event listener for every project in sidebar
    displays project details(tasks, notes, date) in body
 
-newTask();
-  'click' event listener to add task in body
-   displays task details in body for project
+updateProject();
+  user input notes, add tasks, adddate in body
+  newTask();
+    'click' event listener to add task in body
+    displays task details in body for project
+    optional important toggle add to allTasks()
 
 sidebarAllTasks();
     'click' event to display all tasks in body
@@ -92,4 +95,6 @@ Functionality: Will display in body upon what option is clicked on sidebar.
 I want to aim to use a calendar library. All projects and tasks should 
 be deleted and added in their respective arrays. Need for projects and tasks to be saved on clients computer upon reload. 
 Have a edit option for every task and project. 
+
+https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_text
 

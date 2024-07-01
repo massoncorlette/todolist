@@ -3,6 +3,7 @@ import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import importantIcon from './icons/flag.png';
+import { format } from "date-fns";
 import {makeProject, makeTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
 
 
@@ -94,7 +95,6 @@ export default function toggleSidebarButton() {
   heading.textContent = 'Projects';
   projectContainer.appendChild(heading);
 
-
   const addContainer = document.createElement('div');
   addContainer.id = 'add-container';
 
@@ -124,7 +124,6 @@ export function newProject() {
   projectInput.id = 'projectInput';
   projectInput.placeholder = "Enter project name";
 
-
   addProjectBtn.addEventListener('click', (event) => {
     btnDiv.id = 'btnDiv';
     addProjectBtn.innerHTML = '';
@@ -140,7 +139,7 @@ export function newProject() {
     projectInput.addEventListener('focus', () => {
       projectInput.classList.add('focus');
     });
-    
+
     addBtn.addEventListener('click', (event) => {
       const sidebarProjectContainer = document.querySelector('#project-container');
       const allProjects = document.querySelector('#allProjects');
@@ -160,9 +159,9 @@ export function newProject() {
           let projectTxt = newProjectAdd.innerText;
           projectDetails(projectTxt);
         });
-    
-        clearProjectAdd();
-        event.stopPropagation();
+
+      clearProjectAdd();
+      event.stopPropagation();
       }
     });
     
@@ -181,15 +180,16 @@ export function newProject() {
   }
 };
 
+// seperate function for Calendar and 'goto' project from tasks tab
 export function projectDetails(project) {
   clearMain();
   
   let projectInfoContainer = document.createElement('div');
+  projectInfoContainer.classList.add('projectInfoContainer');
   let title = document.createElement('p');
   title.innerText = project;
   projectInfoContainer.appendChild(title);
   main.appendChild(projectInfoContainer);
-
 };
 
 
