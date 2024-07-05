@@ -183,14 +183,30 @@ export function newProject() {
 // seperate function for Calendar and 'goto' project from tasks tab
 export function projectDetails(project) {
   clearMain();
-  
+
   let projectInfoContainer = document.createElement('div');
+  let titleBtnContainer = document.createElement('div');
+  titleBtnContainer.classList.add('titleBtnContainer');
   projectInfoContainer.classList.add('projectInfoContainer');
   let title = document.createElement('p');
   title.innerText = project;
-  projectInfoContainer.appendChild(title);
+  let addTaskBtn = document.createElement('div');
+  addTaskBtn.classList.add('addTaskBtn');
+  titleBtnContainer.appendChild(title);
+  titleBtnContainer.appendChild(addTaskBtn);
+  projectInfoContainer.appendChild(titleBtnContainer);
   main.appendChild(projectInfoContainer);
+
+  let addBtnClick = document.querySelector('.addTasksBtn');
+
+  function addTask() {
+    const taskName = document.createElement('input');
+
+
+  }
 };
+
+
 
 
 
