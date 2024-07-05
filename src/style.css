@@ -15,7 +15,7 @@ body {
   grid-template-rows: repeat(10, 10%);
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 900;
+  font-weight: 800;
   font-style: normal;
   font-variation-settings: "slnt" 0;
 }
@@ -197,13 +197,14 @@ input[type="text"] {
 .icons {
   width: 50px;
   height: 40px;
+  margin-left: 4%;
 }
 
 .options {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8%;
+  gap: 10%;
   font-style: oblique;
   color: rgb(75, 75, 75);
   letter-spacing: 0.05em;
