@@ -186,24 +186,32 @@ export function projectDetails(project) {
 
   let projectInfoContainer = document.createElement('div');
   let titleBtnContainer = document.createElement('div');
+  let addTaskBtn = document.createElement('div');
+  let title = document.createElement('p');
+
   titleBtnContainer.classList.add('titleBtnContainer');
   projectInfoContainer.classList.add('projectInfoContainer');
-  let title = document.createElement('p');
-  title.innerText = project;
-  let addTaskBtn = document.createElement('div');
   addTaskBtn.classList.add('addTaskBtn');
+
+  title.innerText = project;
+ 
   titleBtnContainer.appendChild(title);
   titleBtnContainer.appendChild(addTaskBtn);
   projectInfoContainer.appendChild(titleBtnContainer);
   main.appendChild(projectInfoContainer);
 
-  let addBtnClick = document.querySelector('.addTasksBtn');
+  const taskInput = document.createElement('input');
+  taskInput.placeholder = 'Enter new task';
+  taskInput.classList.add('taskInput');
+  taskInput.type = 'text';
+  let taskContainer = document.createElement('div');
+  taskContainer.classList.add('taskContainer');
 
-  function addTask() {
-    const taskName = document.createElement('input');
+  addTaskBtn.addEventListener('click', () => {
+    taskContainer.appendChild(taskInput);
+    projectInfoContainer.appendChild(taskContainer);
 
-
-  }
+  });
 };
 
 
