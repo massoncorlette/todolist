@@ -200,22 +200,49 @@ export function projectDetails(project) {
   projectInfoContainer.appendChild(titleBtnContainer);
   main.appendChild(projectInfoContainer);
 
+  const taskForum = document.createElement('form');
   const taskInput = document.createElement('input');
+  const taskDate = document.createElement('input');
+  const taskDetails = document.createElement('textarea');
+  const submitBtn = document.createElement('button');
+  const cancelSubmit = document.createElement('button');
+  const taskContainer = document.createElement('div');
+  const inputDateContainer = document.createElement('div'); 
+  const inputBtnContainer = document.createElement('div');
+  
   taskInput.placeholder = 'Enter new task';
+  taskDetails.placeholder = 'Notes:';
+  
   taskInput.classList.add('taskInput');
+  taskDetails.classList.add('taskDetails');
+  taskDate.classList.add('taskDate');
+  submitBtn.classList.add('submitBtn');
+  cancelSubmit.classList.add('cancelSubmit');
+  
   taskInput.type = 'text';
-  let taskContainer = document.createElement('div');
+  submitBtn.type = 'submit';
+  taskDate.type = 'date';
+  submitBtn.textContent = 'Add Task';
+  cancelSubmit.textContent = 'Cancel';
   taskContainer.classList.add('taskContainer');
-
+  inputDateContainer.classList.add('inputContainer'); 
+  
+  inputDateContainer.appendChild(taskInput);
+  inputDateContainer.appendChild(taskDate);
+  inputBtnContainer.appendChild(submitBtn);
+  inputBtnContainer.appendChild(cancelSubmit);
+  
+  taskForum.appendChild(inputDateContainer); 
+  taskForum.appendChild(taskDetails);
+  taskForum.appendChild(inputBtnContainer);
+  
+  taskContainer.appendChild(taskForum);
+  
   addTaskBtn.addEventListener('click', () => {
-    taskContainer.appendChild(taskInput);
     projectInfoContainer.appendChild(taskContainer);
-
   });
-};
 
-
-
+}
 
 
 

@@ -35,6 +35,17 @@ i {
   color: var(--fourth-color);
 }
 
+form {
+  display: flex;
+  flex:  1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 200px;
+  width: auto;
+}
+
 #break-line {
   display: flex;
   height: 1px;
@@ -139,7 +150,7 @@ scale: 1.1;
   width: 100%;
 }
 
-input[type="text"] {
+input[type="text"] , textarea {
   height: 20px;
   box-shadow: inset 1px 1px 5px rgba(46, 43, 43, 0.425);
   border-style: none;
@@ -352,8 +363,7 @@ input:checked + .slider:before {
 }
 
 .taskContainer {
-  display: flex;
-  flex: 1;
+ 
   justify-content: space-evenly;
   width: 100%;
   margin-top: 2%;
@@ -362,9 +372,47 @@ input:checked + .slider:before {
 .taskInput {
   border: none;
   padding: 10px;
-  height: 30px;
-  width: 50%;
+  height: 20px;
+  width: 75%;
   outline-style: none;
   font-size: 20px;
 }
 
+.taskDetails {
+  padding: 10px;
+  height: 40px;
+  width: 50%;
+  outline-style: none;
+  font-size: 16px;
+  margin-top: 2%;
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
+  resize: none;
+}
+
+.taskDate {
+  display: flex;
+  flex: 2;
+  border: none;
+  padding: 10px;
+  height: 20px;
+  outline-style: none;
+  font-size: 16px;
+}
+
+.inputContainer {
+  display: flex;
+  width: 51%;
+}
+
+.submitBtn {
+  padding: 5px;
+  margin: 5px;
+  background-color: var(--primary-color);
+}
+
+.cancelSubmit {
+  padding: 5px;
+  margin: 5px;
+  background-color: var(--secondary-color);
+}
