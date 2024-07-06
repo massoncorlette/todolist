@@ -154,6 +154,10 @@ export function newProject() {
         newProjectAdd.appendChild(projectNameTxt);
         allProjects.appendChild(newProjectAdd);
         sidebarProjectContainer.appendChild(allProjects);
+        
+        const newProject = new makeProject(projectName);
+        projects.push(newProject);
+        console.log(projects);
 
         newProjectAdd.addEventListener('click', () => {
           let projectTxt = newProjectAdd.innerText;
@@ -178,79 +182,86 @@ export function newProject() {
     projectInput.classList.remove('focus');
     projectInput.value = '';
   }
+
+  function projectDetails(project) {
+    clearMain();
+  
+    let projectInfoContainer = document.createElement('div');
+    let titleBtnContainer = document.createElement('div');
+    let addTaskBtn = document.createElement('div');
+    let title = document.createElement('p');
+  
+    titleBtnContainer.classList.add('titleBtnContainer');
+    projectInfoContainer.classList.add('projectInfoContainer');
+    addTaskBtn.classList.add('addTaskBtn');
+  
+    title.innerText = project;
+   
+    titleBtnContainer.appendChild(title);
+    titleBtnContainer.appendChild(addTaskBtn);
+    projectInfoContainer.appendChild(titleBtnContainer);
+    main.appendChild(projectInfoContainer);
+    
+    addTaskBtn.addEventListener('click', () => {
+      const taskForum = document.createElement('form');
+      const taskInput = document.createElement('input');
+      const taskDate = document.createElement('input');
+      const taskDetails = document.createElement('textarea');
+      const submitBtn = document.createElement('button');
+      const cancelSubmit = document.createElement('button');
+      const taskContainer = document.createElement('div');
+      const inputDateContainer = document.createElement('div'); 
+      const inputBtnContainer = document.createElement('div');
+      
+      taskInput.placeholder = 'Enter new task';
+      taskDetails.placeholder = 'Notes:';
+      
+      taskInput.classList.add('taskInput');
+      taskDetails.classList.add('taskDetails');
+      taskDate.classList.add('taskDate');
+      submitBtn.classList.add('submitBtn');
+      cancelSubmit.classList.add('cancelSubmit');
+      
+      taskInput.type = 'text';
+      submitBtn.type = 'submit';
+      taskDate.type = 'date';
+      submitBtn.textContent = 'Add Task';
+      cancelSubmit.textContent = 'Cancel';
+      taskContainer.classList.add('taskContainer');
+      inputDateContainer.classList.add('inputContainer'); 
+      
+      inputDateContainer.appendChild(taskInput);
+      inputDateContainer.appendChild(taskDate);
+      inputBtnContainer.appendChild(submitBtn);
+      inputBtnContainer.appendChild(cancelSubmit);
+      
+      taskForum.appendChild(inputDateContainer); 
+      taskForum.appendChild(taskDetails);
+      taskForum.appendChild(inputBtnContainer);
+      
+      taskContainer.appendChild(taskForum);
+      projectInfoContainer.appendChild(taskContainer);
+  
+      cancelSubmit.addEventListener('click', () => {
+        projectInfoContainer.removeChild(taskContainer);
+      });
+  
+      submitBtn.addEventListener('click', (event) => {
+        event.preventDefault(); 
+  
+        const taskName = taskInput.value;
+        const taskNotes = taskDetails.value;
+        const taskDateValue = taskDate.value;
+        const formattedTaskDate = format(new Date(taskDateValue), 'dd/MM/yyyy');
+      
+        const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
+        allTasks.push(newTask);
+      
+        console.log(allTasks);
+      
+        projectInfoContainer.removeChild(taskContainer);
+      });
+    });
+  };
 };
-
-// seperate function for Calendar and 'goto' project from tasks tab
-export function projectDetails(project) {
-  clearMain();
-
-  let projectInfoContainer = document.createElement('div');
-  let titleBtnContainer = document.createElement('div');
-  let addTaskBtn = document.createElement('div');
-  let title = document.createElement('p');
-
-  titleBtnContainer.classList.add('titleBtnContainer');
-  projectInfoContainer.classList.add('projectInfoContainer');
-  addTaskBtn.classList.add('addTaskBtn');
-
-  title.innerText = project;
- 
-  titleBtnContainer.appendChild(title);
-  titleBtnContainer.appendChild(addTaskBtn);
-  projectInfoContainer.appendChild(titleBtnContainer);
-  main.appendChild(projectInfoContainer);
-
-  const taskForum = document.createElement('form');
-  const taskInput = document.createElement('input');
-  const taskDate = document.createElement('input');
-  const taskDetails = document.createElement('textarea');
-  const submitBtn = document.createElement('button');
-  const cancelSubmit = document.createElement('button');
-  const taskContainer = document.createElement('div');
-  const inputDateContainer = document.createElement('div'); 
-  const inputBtnContainer = document.createElement('div');
-  
-  taskInput.placeholder = 'Enter new task';
-  taskDetails.placeholder = 'Notes:';
-  
-  taskInput.classList.add('taskInput');
-  taskDetails.classList.add('taskDetails');
-  taskDate.classList.add('taskDate');
-  submitBtn.classList.add('submitBtn');
-  cancelSubmit.classList.add('cancelSubmit');
-  
-  taskInput.type = 'text';
-  submitBtn.type = 'submit';
-  taskDate.type = 'date';
-  submitBtn.textContent = 'Add Task';
-  cancelSubmit.textContent = 'Cancel';
-  taskContainer.classList.add('taskContainer');
-  inputDateContainer.classList.add('inputContainer'); 
-  
-  inputDateContainer.appendChild(taskInput);
-  inputDateContainer.appendChild(taskDate);
-  inputBtnContainer.appendChild(submitBtn);
-  inputBtnContainer.appendChild(cancelSubmit);
-  
-  taskForum.appendChild(inputDateContainer); 
-  taskForum.appendChild(taskDetails);
-  taskForum.appendChild(inputBtnContainer);
-  
-  taskContainer.appendChild(taskForum);
-  
-  addTaskBtn.addEventListener('click', () => {
-    projectInfoContainer.appendChild(taskContainer);
-  });
-
-}
-
-
-
-//export default function projectDetails(); {
-
-
-
-//export default function newTask(); {
-
-
 

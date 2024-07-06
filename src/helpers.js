@@ -6,8 +6,10 @@ let allTasks = [];
 let importantTasks = [];
 
 //factory functions so each project & task has methods and properties
-export default function makeTask(task) {
+export function makeTask(task,notes,date) {
   this.task = task;
+  this.notes = notes;
+  this.date = date;
   this.important = false;
   this.complete = false;
 
@@ -19,16 +21,17 @@ export default function makeTask(task) {
     tasksArray.splice(tasksArray.indexOf(task), 1);
   };
   return {
+    task,
+    notes,
+    date,
     addTask:addTask,
     deleteTask:deleteTask
   };
 };
 
 //each project will have its own task array
-export function makeProject(title,notes,date) {
+export function makeProject(title) {
   this.title = title;
-  this.notes = notes;
-  this.date = date;
   this.tasksArray = [];
   this.complete = false;
 
@@ -42,10 +45,6 @@ export function makeProject(title,notes,date) {
 
   return {
     title,
-    notes,
-    date,
-    tasksArray,
-    complete,
     addProject,
     deleteProject
   };
