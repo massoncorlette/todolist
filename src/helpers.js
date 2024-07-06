@@ -45,6 +45,8 @@ export function makeProject(title) {
 
   return {
     title,
+    tasksArray: this.tasksArray,
+    complete: this.complete,
     addProject,
     deleteProject
   };

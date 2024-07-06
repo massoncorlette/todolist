@@ -161,7 +161,8 @@ export function newProject() {
 
         newProjectAdd.addEventListener('click', () => {
           let projectTxt = newProjectAdd.innerText;
-          projectDetails(projectTxt);
+          projectDetails(projectTxt, newProject.tasksArray);
+          console.log(newProject);
         });
 
       clearProjectAdd();
@@ -183,7 +184,7 @@ export function newProject() {
     projectInput.value = '';
   }
 
-  function projectDetails(project) {
+  function projectDetails(project, projectArray) {
     clearMain();
   
     let projectInfoContainer = document.createElement('div');
@@ -256,6 +257,7 @@ export function newProject() {
       
         const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
         allTasks.push(newTask);
+        projectArray.push(newTask);
       
         console.log(allTasks);
       
@@ -264,4 +266,3 @@ export function newProject() {
     });
   };
 };
-
