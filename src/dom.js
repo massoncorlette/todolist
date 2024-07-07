@@ -209,6 +209,28 @@ export function newProject() {
     projectInfoContainer.appendChild(addTaskContainer);
 
     main.appendChild(projectInfoContainer);
+
+    for (let i = 0; i < projectArray.length; i++) {
+
+      const taskInformation = document.createElement('div');
+      const taskTitle = document.createElement('div');
+      const taskNoteContainer = document.createElement('div');
+      const taskDateContainer = document.createElement('div');
+
+
+      taskTitle.innerText = projectArray[i].task;
+      taskDateContainer.innerText = projectArray[i].date;
+
+      taskInformation.appendChild(taskTitle);
+      taskInformation.appendChild(taskDateContainer);
+    
+      console.log(allTasks);
+    
+      projectInfoContainer.appendChild(taskInformation);
+      projectInfoContainer.appendChild(addTaskContainer);
+
+      taskInformation.classList.add('taskInformation');
+    };
     
     addTaskBtn.addEventListener('click', () => {
       projectInfoContainer.removeChild(addTaskContainer);
@@ -257,25 +279,40 @@ export function newProject() {
       });
   
       submitBtn.addEventListener('click', (event) => {
-        projectInfoContainer.appendChild(addTaskContainer);
         event.preventDefault();
+
+        const taskInformation = document.createElement('div');
+        const taskTitle = document.createElement('div');
+        const taskNoteContainer = document.createElement('div');
+        const taskDateContainer = document.createElement('div');
+
+        taskInformation.classList.add('taskInformation');
 
         const taskName = taskInput.value;
         const taskNotes = taskDetails.value;
         const taskDateValue = taskDate.value;
+        taskTitle.innerText = taskName;
+        taskNoteContainer.innerText = taskNotes;
+        
         let formattedTaskDate = null;
       
         if (taskDateValue) {
           formattedTaskDate = format(new Date(taskDateValue), 'dd/MM/yyyy');
+          taskDateContainer.innerText = formattedTaskDate;
         }
     
         const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
         allTasks.push(newTask);
         projectArray.push(newTask);
+
+        taskInformation.appendChild(taskTitle);
+        taskInformation.appendChild(taskDateContainer);
       
         console.log(allTasks);
       
         projectInfoContainer.removeChild(taskContainer);
+        projectInfoContainer.appendChild(taskInformation);
+        projectInfoContainer.appendChild(addTaskContainer);
       });
     });
   };
