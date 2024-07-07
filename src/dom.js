@@ -306,21 +306,27 @@ const projectDetails = function(project, projectArray) {
     titleToggleContainer.appendChild(taskTitle);
     titleToggleContainer.appendChild(toggleNotes);
     titleDateContainer.append(titleToggleContainer);
-
-    if (notes) {
-      taskNoteContainer.innerText = notes;
-    }
       
-    let formattedTaskDate = null;
     if (date) {
-      formattedTaskDate = date;
-      taskDateContainer.innerText = formattedTaskDate;
-      titleDateContainer.appendChild(taskDateContainer);
+      taskDateContainer.innerText = date;
+      titleDateContainer.appendChild(date);
     }
     console.log(allTasks);
     taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
-  }
 
+    toggleNotes.addEventListener('click', () => {
+      if (notes) {
+        taskNoteContainer.innerText = notes;
+      }
+      if (!taskInformation.contains(taskNoteContainer)) {
+        taskInformation.appendChild(taskNoteContainer);
+      } else {
+        taskInformation.removeChild(taskNoteContainer);
+      }
+      taskNoteContainer.classList.toggle('open');
+      toggleNotes.classList.toggle('open')
+    });
+  };
 };
