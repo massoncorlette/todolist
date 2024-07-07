@@ -17,8 +17,8 @@ export function makeTask(task,notes,date) {
     tasksArray.push(task);
   };
 
-  function deleteTask(tasksArray) {
-    tasksArray.splice(tasksArray.indexOf(task), 1);
+  function deleteTask(tasksArray, selectedTask) {
+    tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
   };
   return {
     task,
