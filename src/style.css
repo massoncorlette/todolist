@@ -416,3 +416,10 @@ input:checked + .slider:before {
   margin: 5px;
   background-color: var(--secondary-color);
 }
+
+.addTaskContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}

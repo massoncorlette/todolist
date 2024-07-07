@@ -190,20 +190,28 @@ export function newProject() {
     let projectInfoContainer = document.createElement('div');
     let titleBtnContainer = document.createElement('div');
     let addTaskBtn = document.createElement('div');
+    let addTaskContainer = document.createElement('div');
     let title = document.createElement('p');
+    let addTxt = document.createElement('p');
   
     titleBtnContainer.classList.add('titleBtnContainer');
     projectInfoContainer.classList.add('projectInfoContainer');
     addTaskBtn.classList.add('addTaskBtn');
+    addTaskContainer.classList.add('addTaskContainer');
   
     title.innerText = project;
+    addTxt.innerText = "Add task";
    
     titleBtnContainer.appendChild(title);
-    titleBtnContainer.appendChild(addTaskBtn);
     projectInfoContainer.appendChild(titleBtnContainer);
+    addTaskContainer.appendChild(addTxt);
+    addTaskContainer.appendChild(addTaskBtn);
+    projectInfoContainer.appendChild(addTaskContainer);
+
     main.appendChild(projectInfoContainer);
     
     addTaskBtn.addEventListener('click', () => {
+      projectInfoContainer.removeChild(addTaskContainer);
       const taskForum = document.createElement('form');
       const taskInput = document.createElement('input');
       const taskDate = document.createElement('input');
@@ -244,17 +252,23 @@ export function newProject() {
       projectInfoContainer.appendChild(taskContainer);
   
       cancelSubmit.addEventListener('click', () => {
+        projectInfoContainer.appendChild(addTaskContainer);
         projectInfoContainer.removeChild(taskContainer);
       });
   
       submitBtn.addEventListener('click', (event) => {
-        event.preventDefault(); 
-  
+        projectInfoContainer.appendChild(addTaskContainer);
+        event.preventDefault();
+
         const taskName = taskInput.value;
         const taskNotes = taskDetails.value;
         const taskDateValue = taskDate.value;
-        const formattedTaskDate = format(new Date(taskDateValue), 'dd/MM/yyyy');
+        let formattedTaskDate = null;
       
+        if (taskDateValue) {
+          formattedTaskDate = format(new Date(taskDateValue), 'dd/MM/yyyy');
+        }
+    
         const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
         allTasks.push(newTask);
         projectArray.push(newTask);
