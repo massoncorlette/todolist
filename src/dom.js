@@ -287,14 +287,25 @@ const projectDetails = function(project, projectArray) {
   function displayTasks(task, notes, date) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
+    const toggleNotes = document.createElement('div');
+    const titleToggleContainer = document.createElement('div');
+    const titleDateContainer = document.createElement('div');
     const taskNoteContainer = document.createElement('div');
     const taskDateContainer = document.createElement('div');
 
     taskInformation.classList.add('taskInformation');
+    taskTitle.classList.add('taskTitle');
     taskDateContainer.classList.add('taskDateContainer');
+    toggleNotes.classList.add('toggleNotes');
+    titleToggleContainer.classList.add('titleToggleContainer');
+    titleDateContainer.classList.add('titleDateContainer');
+    taskNoteContainer.classList.add('taskNoteContainer');
 
     taskTitle.innerText = task;
-    taskInformation.appendChild(taskTitle);
+    taskNoteContainer.innerText = notes;
+    titleToggleContainer.appendChild(taskTitle);
+    titleToggleContainer.appendChild(toggleNotes);
+    titleDateContainer.append(titleToggleContainer);
 
     if (notes) {
       taskNoteContainer.innerText = notes;
@@ -304,10 +315,12 @@ const projectDetails = function(project, projectArray) {
     if (date) {
       formattedTaskDate = date;
       taskDateContainer.innerText = formattedTaskDate;
-      taskInformation.appendChild(taskDateContainer);
+      titleDateContainer.appendChild(taskDateContainer);
     }
     console.log(allTasks);
+    taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
   }
+
 };
