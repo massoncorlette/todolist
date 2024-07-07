@@ -212,25 +212,8 @@ const projectDetails = function(project, projectArray) {
   main.appendChild(projectInfoContainer);
 
   for (let i = 0; i < projectArray.length; i++) {
+    displayTasks(projectArray[i].task,projectArray[i].notes, projectArray[i].date);
 
-    const taskInformation = document.createElement('div');
-    const taskTitle = document.createElement('div');
-    const taskNoteContainer = document.createElement('div');
-    const taskDateContainer = document.createElement('div');
-
-
-    taskTitle.innerText = projectArray[i].task;
-    taskDateContainer.innerText = projectArray[i].date;
-
-    taskInformation.appendChild(taskTitle);
-    taskInformation.appendChild(taskDateContainer);
-  
-    console.log(allTasks);
-  
-    projectInfoContainer.appendChild(taskInformation);
-    projectInfoContainer.appendChild(addTaskContainer);
-
-    taskInformation.classList.add('taskInformation');
   };
   
   addTaskBtn.addEventListener('click', () => {
@@ -308,6 +291,7 @@ const projectDetails = function(project, projectArray) {
     const taskDateContainer = document.createElement('div');
 
     taskInformation.classList.add('taskInformation');
+    taskDateContainer.classList.add('taskDateContainer');
 
     taskTitle.innerText = task;
     taskInformation.appendChild(taskTitle);
@@ -318,11 +302,12 @@ const projectDetails = function(project, projectArray) {
       
     let formattedTaskDate = null;
     if (date) {
-      formattedTaskDate = format(new Date(date), 'dd/MM/yyyy');
+      formattedTaskDate = date;
       taskDateContainer.innerText = formattedTaskDate;
       taskInformation.appendChild(taskDateContainer);
     }
     console.log(allTasks);
     projectInfoContainer.appendChild(taskInformation);
+    projectInfoContainer.appendChild(addTaskContainer);
   }
 };
