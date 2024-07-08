@@ -13,20 +13,15 @@ export function makeTask(task,notes,date) {
   this.important = false;
   this.complete = false;
 
-  function addTask(task, tasksArray) {
-    tasksArray.push(task);
-  };
-
-  function deleteTask(tasksArray, selectedTask) {
-    tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
-  };
   return {
-    task,
-    notes,
-    date,
-    addTask:addTask,
-    deleteTask:deleteTask
-  };
+    important: this.important,
+    complete: this.complete
+  }
+
+};
+
+export function deleteTask(tasksArray, selectedTask) {
+  tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
 };
 
 //each project will have its own task array

@@ -6,16 +6,15 @@ import toggleImportantIcon from './icons/star.svg';
 import toggleImportantFill from './icons/filledstar.svg';
 import importantIcon from './icons/flag.png';
 import { format } from "date-fns";
-import {makeProject, makeTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
-
-
-// npm run liveview script command to update liveview
-// making sure to focus on DOM only, not logic
+import {makeProject, makeTask, deleteTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
 
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
-
+const important = document.getElementById('important');
+const todo = document.getElementById('todo');
+const calendar = document.getElementById('calendar');
+const completed = document.getElementById('completed');
 
 function clearMain() {
   while (main.firstChild) {
@@ -213,9 +212,79 @@ const projectDetails = function(project, projectArray) {
 
   main.appendChild(projectInfoContainer);
 
+  const displayTasks = function(taskname, notes, date, task) {
+    const taskInformation = document.createElement('div');
+    const taskTitle = document.createElement('div');
+    const toggleNotes = document.createElement('div');
+    const toggleImportant = document.createElement('div');
+    const titleToggleContainer = document.createElement('div');
+    const titleDateContainer = document.createElement('div');
+    const taskNoteContainer = document.createElement('div');
+    const taskDateContainer = document.createElement('div');
+    const importantImg = document.createElement('img');
+
+    taskInformation.classList.add('taskInformation');
+    taskTitle.classList.add('taskTitle');
+    taskDateContainer.classList.add('taskDateContainer');
+    toggleNotes.classList.add('toggleNotes');
+    toggleImportant.classList.add('toggleImportant');
+    titleToggleContainer.classList.add('titleToggleContainer');
+    titleDateContainer.classList.add('titleDateContainer');
+    taskNoteContainer.classList.add('taskNoteContainer');
+
+    taskTitle.innerText = taskname;
+    taskNoteContainer.innerText = notes;
+    
+    importantImg.src = toggleImportantIcon;
+    importantImg.alt = 'Star Icon';
+    importantImg.classList.add('importantImg');
+    toggleImportant.appendChild(importantImg);
+
+    titleToggleContainer.appendChild(toggleImportant);
+    titleToggleContainer.appendChild(taskTitle);
+    titleToggleContainer.appendChild(toggleNotes);
+    titleDateContainer.append(titleToggleContainer);
+      
+    if (date) {
+      taskDateContainer.innerText = date;
+      titleDateContainer.appendChild(taskDateContainer);
+    }
+
+    console.log(allTasks);
+    taskInformation.appendChild(titleDateContainer);
+    projectInfoContainer.appendChild(taskInformation);
+    projectInfoContainer.appendChild(addTaskContainer);
+
+    toggleImportant.addEventListener('click', () => {
+      if (importantImg.src === toggleImportantIcon) {
+        importantImg.src = toggleImportantFill;
+        task.important = true;
+        importantTasks.push(task);
+        console.log(importantTasks);
+      } else {
+        importantImg.src = toggleImportantIcon
+        task.important = false;
+        deleteTask(importantTasks, task);
+      }
+    });
+
+    toggleNotes.addEventListener('click', () => {
+      if (notes) {
+        taskNoteContainer.innerText = notes;
+      }
+      if (!taskInformation.contains(taskNoteContainer)) {
+        taskInformation.appendChild(taskNoteContainer);
+      } else {
+        taskInformation.removeChild(taskNoteContainer);
+      }
+      taskNoteContainer.classList.toggle('open');
+      toggleNotes.classList.toggle('open')
+    });
+    return taskInformation;
+  };
+
   for (let i = 0; i < projectArray.length; i++) {
     displayTasks(projectArray[i].task,projectArray[i].notes, projectArray[i].date);
-
   };
   
   addTaskBtn.addEventListener('click', () => {
@@ -286,72 +355,15 @@ const projectDetails = function(project, projectArray) {
       projectInfoContainer.appendChild(addTaskContainer);
     });
   });
-  const displayTasks = function(taskname, notes, date, task) {
-    const taskInformation = document.createElement('div');
-    const taskTitle = document.createElement('div');
-    const toggleNotes = document.createElement('div');
-    const toggleImportant = document.createElement('div');
-    const titleToggleContainer = document.createElement('div');
-    const titleDateContainer = document.createElement('div');
-    const taskNoteContainer = document.createElement('div');
-    const taskDateContainer = document.createElement('div');
-    const importantImg = document.createElement('img');
-
-    taskInformation.classList.add('taskInformation');
-    taskTitle.classList.add('taskTitle');
-    taskDateContainer.classList.add('taskDateContainer');
-    toggleNotes.classList.add('toggleNotes');
-    toggleImportant.classList.add('toggleImportant');
-    titleToggleContainer.classList.add('titleToggleContainer');
-    titleDateContainer.classList.add('titleDateContainer');
-    taskNoteContainer.classList.add('taskNoteContainer');
-
-    taskTitle.innerText = taskname;
-    taskNoteContainer.innerText = notes;
-    
-    importantImg.src = toggleImportantIcon;
-    importantImg.alt = 'Star Icon';
-    importantImg.classList.add('importantImg');
-    toggleImportant.appendChild(importantImg);
-
-    titleToggleContainer.appendChild(toggleImportant);
-    titleToggleContainer.appendChild(taskTitle);
-    titleToggleContainer.appendChild(toggleNotes);
-    titleDateContainer.append(titleToggleContainer);
-      
-    if (date) {
-      taskDateContainer.innerText = date;
-      titleDateContainer.appendChild(taskDateContainer);
+  important.addEventListener('click', () => {
+    let importantTasks = '';
+    clearMain();
+    for (let i = 0; i < importantTasks.length; i++) {
+      importantTasks.innerHTML = displayTasks(importantTasks[i].task, importantTasks[i].notes, importantTasks[i].date);
+      main.appendChild(importantTasks);
     }
-
-    console.log(allTasks);
-    taskInformation.appendChild(titleDateContainer);
-    projectInfoContainer.appendChild(taskInformation);
-    projectInfoContainer.appendChild(addTaskContainer);
-
-    toggleImportant.addEventListener('click', () => {
-      if (importantImg.src === toggleImportantIcon) {
-        importantImg.src = toggleImportantFill;
-        task.important = true;
-        importantTasks.push(task);
-        console.log(importantTasks);
-      } else {
-        importantImg.src = toggleImportantIcon
-        task.important = false;
-      }
-    });
-
-    toggleNotes.addEventListener('click', () => {
-      if (notes) {
-        taskNoteContainer.innerText = notes;
-      }
-      if (!taskInformation.contains(taskNoteContainer)) {
-        taskInformation.appendChild(taskNoteContainer);
-      } else {
-        taskInformation.removeChild(taskNoteContainer);
-      }
-      taskNoteContainer.classList.toggle('open');
-      toggleNotes.classList.toggle('open')
-    });
-  };
+  })
 };
+// !!!!!!!!!!!!!!
+//Task TXT undefined
+//important.addEventListener no working
