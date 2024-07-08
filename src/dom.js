@@ -2,6 +2,8 @@ import sidebarIcon from './icons/sidebar.svg';
 import calendarIcon from './icons/schedule.png';
 import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
+import toggleImportantIcon from './icons/star.svg';
+import toggleImportantFill from './icons/filledstar.svg';
 import importantIcon from './icons/flag.png';
 import { format } from "date-fns";
 import {makeProject, makeTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
@@ -288,33 +290,52 @@ const projectDetails = function(project, projectArray) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
     const toggleNotes = document.createElement('div');
+    const toggleImportant = document.createElement('div');
     const titleToggleContainer = document.createElement('div');
     const titleDateContainer = document.createElement('div');
     const taskNoteContainer = document.createElement('div');
     const taskDateContainer = document.createElement('div');
+    const importantImg = document.createElement('img');
 
     taskInformation.classList.add('taskInformation');
     taskTitle.classList.add('taskTitle');
     taskDateContainer.classList.add('taskDateContainer');
     toggleNotes.classList.add('toggleNotes');
+    toggleImportant.classList.add('toggleImportant');
     titleToggleContainer.classList.add('titleToggleContainer');
     titleDateContainer.classList.add('titleDateContainer');
     taskNoteContainer.classList.add('taskNoteContainer');
 
     taskTitle.innerText = task;
     taskNoteContainer.innerText = notes;
+    
+    importantImg.src = toggleImportantIcon;
+    importantImg.alt = 'Star Icon';
+    importantImg.classList.add('importantImg');
+    toggleImportant.appendChild(importantImg);
+
+    titleToggleContainer.appendChild(toggleImportant);
     titleToggleContainer.appendChild(taskTitle);
     titleToggleContainer.appendChild(toggleNotes);
     titleDateContainer.append(titleToggleContainer);
       
     if (date) {
       taskDateContainer.innerText = date;
-      titleDateContainer.appendChild(date);
+      titleDateContainer.appendChild(taskDateContainer);
     }
+
     console.log(allTasks);
     taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
+
+    toggleImportant.addEventListener('click', () => {
+      if (importantImg.src === toggleImportantIcon) {
+        importantImg.src = toggleImportantFill;
+      } else {
+        importantImg.src = toggleImportantIcon
+      }
+    })
 
     toggleNotes.addEventListener('click', () => {
       if (notes) {
