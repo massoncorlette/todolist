@@ -280,13 +280,13 @@ const projectDetails = function(project, projectArray) {
       allTasks.push(newTask);
       projectArray.push(newTask);
 
-      displayTasks(taskName, taskNotes, formattedTaskDate);
+      displayTasks(taskName, taskNotes, formattedTaskDate, newTask);
 
       projectInfoContainer.removeChild(taskContainer);
       projectInfoContainer.appendChild(addTaskContainer);
     });
   });
-  function displayTasks(task, notes, date) {
+  const displayTasks = function(taskname, notes, date, task) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
     const toggleNotes = document.createElement('div');
@@ -306,7 +306,7 @@ const projectDetails = function(project, projectArray) {
     titleDateContainer.classList.add('titleDateContainer');
     taskNoteContainer.classList.add('taskNoteContainer');
 
-    taskTitle.innerText = task;
+    taskTitle.innerText = taskname;
     taskNoteContainer.innerText = notes;
     
     importantImg.src = toggleImportantIcon;
@@ -332,10 +332,14 @@ const projectDetails = function(project, projectArray) {
     toggleImportant.addEventListener('click', () => {
       if (importantImg.src === toggleImportantIcon) {
         importantImg.src = toggleImportantFill;
+        task.important = true;
+        importantTasks.push(task);
+        console.log(importantTasks);
       } else {
         importantImg.src = toggleImportantIcon
+        task.important = false;
       }
-    })
+    });
 
     toggleNotes.addEventListener('click', () => {
       if (notes) {
