@@ -279,14 +279,17 @@ const projectDetails = function(project, projectArray) {
       }
       taskNoteContainer.classList.toggle('open');
       toggleNotes.classList.toggle('open')
+  
     });
     return taskInformation;
   };
+  function displayAllTasks(taskArray) {
+    for (let i = 0; i < taskArray.length; i++) {
+      displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
+    };
+  }
+  displayAllTasks(projectArray);
 
-  for (let i = 0; i < projectArray.length; i++) {
-    displayTasks(projectArray[i].task,projectArray[i].notes, projectArray[i].date);
-  };
-  
   addTaskBtn.addEventListener('click', () => {
     projectInfoContainer.removeChild(addTaskContainer);
     const taskForum = document.createElement('form');
@@ -355,6 +358,7 @@ const projectDetails = function(project, projectArray) {
       projectInfoContainer.appendChild(addTaskContainer);
     });
   });
+
   important.addEventListener('click', () => {
     let importantTasks = '';
     clearMain();

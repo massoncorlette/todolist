@@ -14,6 +14,9 @@ export function makeTask(task,notes,date) {
   this.complete = false;
 
   return {
+    task:task,
+    notes:notes,
+    date:date,
     important: this.important,
     complete: this.complete
   }
