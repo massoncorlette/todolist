@@ -214,6 +214,8 @@ const projectDetails = function(project, projectArray) {
 
   main.appendChild(projectInfoContainer);
 
+  let taskColorToggle = true;
+
   const displayTasks = function(taskname, notes, date, task) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
@@ -226,6 +228,13 @@ const projectDetails = function(project, projectArray) {
     const taskDateContainer = document.createElement('div');
     const completedImg = document.createElement('img');
     const importantImg = document.createElement('img');
+
+     if (taskColorToggle) {
+      taskInformation.classList.add('taskInformation');
+      } else {
+          taskInformation.classList.add('taskInformationAlt');
+      }
+      taskColorToggle = !taskColorToggle; 
 
     taskInformation.classList.add('taskInformation');
     taskTitle.classList.add('taskTitle');
@@ -267,7 +276,6 @@ const projectDetails = function(project, projectArray) {
       titleDateContainer.appendChild(taskDateContainer);
     }
 
-    console.log(allTasks);
     taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
