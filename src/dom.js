@@ -365,16 +365,20 @@ const projectDetails = function(project, projectArray) {
       projectInfoContainer.appendChild(addTaskContainer);
     });
   });
-
-  important.addEventListener('click', () => {
+ // sidebar clicking logic
+ // ADD a section for alltasks that shows uncompleted
+  function displayTaskType(taskArray) {
     clearMain();
-    console.log(importantTasks);
-    let importantTasksContent = document.createElement('div');
-    for (let i = 0; i < importantTasks.length; i++) {
-      console.log(importantTasks);
-      let addedTask = displayTasks(importantTasks[i].task, importantTasks[i].notes, importantTasks[i].date, importantTasks[i]);
-      main.appendChild(addedTask);
-    };
+    for (let i = 0; i < taskArray.length; i++) {
+      let addedTask = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
+      main.appendChild(addedTask);    
+    }
+  };
+  important.addEventListener('click', () => {
+    displayTaskType(importantTasks);
   });
+  todo.addEventListener('click', () => {
+    displayTaskType(allTasks);
+  })
 };
 
