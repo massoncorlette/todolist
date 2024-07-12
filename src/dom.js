@@ -223,6 +223,7 @@ const projectDetails = function(project, projectArray) {
     const taskDateContainer = document.createElement('div');
     const importantImg = document.createElement('img');
 
+
     taskInformation.classList.add('taskInformation');
     taskTitle.classList.add('taskTitle');
     taskDateContainer.classList.add('taskDateContainer');
@@ -234,9 +235,13 @@ const projectDetails = function(project, projectArray) {
 
     taskTitle.innerText = taskname;
     taskNoteContainer.innerText = notes;
+
+    if (task.important === true) {
+      importantImg.src = toggleImportantFill;
+    } else {
+      importantImg.src = toggleImportantIcon;
+    }
     
-    importantImg.src = toggleImportantIcon;
-    importantImg.alt = 'Star Icon';
     importantImg.classList.add('importantImg');
     toggleImportant.appendChild(importantImg);
 
@@ -283,11 +288,13 @@ const projectDetails = function(project, projectArray) {
     });
     return taskInformation;
   };
+
   function displayAllTasks(taskArray) {
     for (let i = 0; i < taskArray.length; i++) {
       displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
     };
   }
+  // direct function call to keep tasks displayed for every project
   displayAllTasks(projectArray);
 
   addTaskBtn.addEventListener('click', () => {
@@ -360,14 +367,14 @@ const projectDetails = function(project, projectArray) {
   });
 
   important.addEventListener('click', () => {
-    let importantTasks = '';
     clearMain();
+    console.log(importantTasks);
+    let importantTasksContent = document.createElement('div');
     for (let i = 0; i < importantTasks.length; i++) {
-      importantTasks.innerHTML = displayTasks(importantTasks[i].task, importantTasks[i].notes, importantTasks[i].date);
-      main.appendChild(importantTasks);
-    }
-  })
+      console.log(importantTasks);
+      let addedTask = displayTasks(importantTasks[i].task, importantTasks[i].notes, importantTasks[i].date, importantTasks[i]);
+      main.appendChild(addedTask);
+    };
+  });
 };
-// !!!!!!!!!!!!!!
-//Task TXT undefined
-//important.addEventListener no working
+
