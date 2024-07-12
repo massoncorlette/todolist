@@ -4,9 +4,11 @@ import todoIcon from './icons/note.png';
 import completedIcon from './icons/approved.png';
 import toggleImportantIcon from './icons/star.svg';
 import toggleImportantFill from './icons/filledstar.svg';
+import checkBox from './icons/checkbox.svg';
+import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import { format } from "date-fns";
-import {makeProject, makeTask, deleteTask, displayImportant, projects, allTasks, importantTasks} from './helpers';
+import {makeProject, makeTask, deleteTask, displayImportant, projects, allTasks, importantTasks, completedTasks} from './helpers';
 
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
@@ -216,18 +218,20 @@ const projectDetails = function(project, projectArray) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
     const toggleNotes = document.createElement('div');
+    const toggleComplete = document.createElement('div');
     const toggleImportant = document.createElement('div');
     const titleToggleContainer = document.createElement('div');
     const titleDateContainer = document.createElement('div');
     const taskNoteContainer = document.createElement('div');
     const taskDateContainer = document.createElement('div');
+    const completedImg = document.createElement('img');
     const importantImg = document.createElement('img');
-
 
     taskInformation.classList.add('taskInformation');
     taskTitle.classList.add('taskTitle');
     taskDateContainer.classList.add('taskDateContainer');
     toggleNotes.classList.add('toggleNotes');
+    toggleComplete.classList.add('toggleCompleted');
     toggleImportant.classList.add('toggleImportant');
     titleToggleContainer.classList.add('titleToggleContainer');
     titleDateContainer.classList.add('titleDateContainer');
@@ -236,15 +240,23 @@ const projectDetails = function(project, projectArray) {
     taskTitle.innerText = taskname;
     taskNoteContainer.innerText = notes;
 
+    if (task.complete === true) {
+      completedImg.src = checkBoxFilled; 
+    } else {
+      completedImg.src = checkBox;
+    }
+    completedImg.classList.add('toggleComplted');
+    toggleComplete.appendChild(completedImg);
+
     if (task.important === true) {
       importantImg.src = toggleImportantFill;
     } else {
       importantImg.src = toggleImportantIcon;
     }
-    
     importantImg.classList.add('importantImg');
     toggleImportant.appendChild(importantImg);
 
+    titleToggleContainer.appendChild(toggleComplete);
     titleToggleContainer.appendChild(toggleImportant);
     titleToggleContainer.appendChild(taskTitle);
     titleToggleContainer.appendChild(toggleNotes);
@@ -260,17 +272,28 @@ const projectDetails = function(project, projectArray) {
     projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
 
+    toggleComplete.addEventListener('click', () => {
+      if (completedImg.src === checkBox) {
+        completedImg.src = checkBoxFilled;
+        task.complete = true;
+        completedTasks.push(task);
+      } else {
+        completedImg.src = checkBox;
+        task.complete = false;
+        deleteTask(completedTasks, task);
+      };
+    });
+
     toggleImportant.addEventListener('click', () => {
       if (importantImg.src === toggleImportantIcon) {
         importantImg.src = toggleImportantFill;
         task.important = true;
         importantTasks.push(task);
-        console.log(importantTasks);
       } else {
         importantImg.src = toggleImportantIcon
         task.important = false;
         deleteTask(importantTasks, task);
-      }
+      };
     });
 
     toggleNotes.addEventListener('click', () => {
@@ -374,11 +397,14 @@ const projectDetails = function(project, projectArray) {
       main.appendChild(addedTask);    
     }
   };
+  todo.addEventListener('click', () => {
+    displayTaskType(allTasks);
+  });
   important.addEventListener('click', () => {
     displayTaskType(importantTasks);
   });
-  todo.addEventListener('click', () => {
-    displayTaskType(allTasks);
-  })
+  completed.addEventListener('click', () => {
+    displayTaskType(completedTasks);
+  });
 };
 

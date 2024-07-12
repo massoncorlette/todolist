@@ -1,9 +1,10 @@
-export {projects, allTasks, importantTasks};
+export {projects, allTasks, importantTasks, completedTasks};
 
 // logic goes here
 let projects = [];
 let allTasks = [];
 let importantTasks = [];
+let completedTasks = [];
 
 //factory functions so each project & task has methods and properties
 export function makeTask(task,notes,date) {

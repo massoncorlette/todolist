@@ -489,21 +489,20 @@ input:checked + .slider:before {
   background-image: url('icons/arrow-up-bold-box.svg');
 }
 
-.toggleNotes:hover {
+.toggleNotes:hover,.toggleImportant:hover  {
   cursor: pointer;
   scale: 1.1;
 }
 
-.toggleImportant {
+.toggleImportant, .toggleCompleted {
   display: flex;
   justify-content: flex-start;
   height: 30px;
   width: 30px;
-  margin-right: 4%;
+  margin-right: 2%;
 }
 
-.toggleImportant:hover {
-  scale: 1.1;
+.toggleCompleted:hover {
   cursor: pointer;
 }
 
@@ -513,3 +512,4 @@ input:checked + .slider:before {
   align-items: center;
   margin-left: 2%;
 }
+
