@@ -51,14 +51,7 @@ export function makeProject(title) {
   };
 };
 
-export function displayImportant() {
-  for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i].tasksArray.important === true) {
-      importantTasks.push(allTasks[i]);
-    }
-  };
-  return importantTasks;
-};
+
 
 
 

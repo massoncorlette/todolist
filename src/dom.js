@@ -7,8 +7,9 @@ import toggleImportantFill from './icons/filledstar.svg';
 import checkBox from './icons/checkbox.svg';
 import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
+import edit from './icons/edit.svg';
 import { format } from "date-fns";
-import {makeProject, makeTask, deleteTask, displayImportant, projects, allTasks, importantTasks, completedTasks} from './helpers';
+import {makeProject, makeTask, deleteTask, projects, allTasks, importantTasks, completedTasks} from './helpers';
 
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
@@ -17,6 +18,8 @@ const important = document.getElementById('important');
 const todo = document.getElementById('todo');
 const calendar = document.getElementById('calendar');
 const completed = document.getElementById('completed');
+const allOptions = document.querySelectorAll('.options');
+const allProjects = document.querySelectorAll('.addedProjects');
 
 function clearMain() {
   while (main.firstChild) {
@@ -226,8 +229,10 @@ const projectDetails = function(project, projectArray) {
     const titleDateContainer = document.createElement('div');
     const taskNoteContainer = document.createElement('div');
     const taskDateContainer = document.createElement('div');
+    const taskEditContainer = document.createElement('div');
     const completedImg = document.createElement('img');
     const importantImg = document.createElement('img');
+    const settingImg = document.createElement('img');
 
      if (taskColorToggle) {
       taskInformation.classList.add('taskInformation');
@@ -245,6 +250,7 @@ const projectDetails = function(project, projectArray) {
     titleToggleContainer.classList.add('titleToggleContainer');
     titleDateContainer.classList.add('titleDateContainer');
     taskNoteContainer.classList.add('taskNoteContainer');
+    taskEditContainer.classList.add('taskEditContainer');
 
     taskTitle.innerText = taskname;
     taskNoteContainer.innerText = notes;
@@ -254,7 +260,7 @@ const projectDetails = function(project, projectArray) {
     } else {
       completedImg.src = checkBox;
     }
-    completedImg.classList.add('toggleComplted');
+    completedImg.classList.add('toggleCompleted');
     toggleComplete.appendChild(completedImg);
 
     if (task.important === true) {
@@ -275,6 +281,9 @@ const projectDetails = function(project, projectArray) {
       taskDateContainer.innerText = date;
       titleDateContainer.appendChild(taskDateContainer);
     }
+
+    settingImg.src = edit;
+    titleDateContainer.appendChild(settingImg);
 
     taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
@@ -315,7 +324,6 @@ const projectDetails = function(project, projectArray) {
       }
       taskNoteContainer.classList.toggle('open');
       toggleNotes.classList.toggle('open')
-  
     });
     return taskInformation;
   };
@@ -324,7 +332,7 @@ const projectDetails = function(project, projectArray) {
     for (let i = 0; i < taskArray.length; i++) {
       displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
     };
-  }
+  };
   // direct function call to keep tasks displayed for every project
   displayAllTasks(projectArray);
 
@@ -405,14 +413,28 @@ const projectDetails = function(project, projectArray) {
       main.appendChild(addedTask);    
     }
   };
+
+  function resetOptions() {
+    allOptions.forEach(option => {
+      option.classList.remove('optionsClicked'); 
+    });
+  };
+  
   todo.addEventListener('click', () => {
     displayTaskType(allTasks);
+    resetOptions(); 
+    todo.classList.add('optionsClicked');
   });
+  
   important.addEventListener('click', () => {
     displayTaskType(importantTasks);
+    resetOptions(); 
+    important.classList.add('optionsClicked');
   });
+  
   completed.addEventListener('click', () => {
     displayTaskType(completedTasks);
+    resetOptions(); 
+    completed.classList.add('optionsClicked');
   });
 };
-

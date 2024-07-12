@@ -115,7 +115,7 @@ form {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
-
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 #add-container.active:hover {
@@ -175,10 +175,21 @@ input[type="text"] , textarea {
   display: flex;
   flex: 1;
   justify-content: center;
+  border-bottom: 1px solid var(--secondary-color);
+  background-color: white;
+}
+
+.addedProjectsClicked {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  border-bottom: 1px solid var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .addedProjects:hover {
   cursor: pointer;
+  background-color: var(--primary-color);
 }
 
 .projectInfoContainer {
@@ -193,7 +204,6 @@ input[type="text"] , textarea {
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  border-bottom: 1px black !important;
   background-color: var(--secondary-color);
 }
 
@@ -231,6 +241,18 @@ input[type="text"] , textarea {
   font-style: oblique;
   color: rgb(75, 75, 75);
   letter-spacing: 0.05em;
+  background-color: white;
+}
+
+.optionsClicked {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10%;
+  font-style: oblique;
+  color: rgb(75, 75, 75);
+  letter-spacing: 0.05em;
+  background-color: var(--secondary-color) ;
 }
 
 .options:hover {
@@ -460,6 +482,7 @@ input:checked + .slider:before {
 .taskDateContainer {
   display: flex;
   flex: 0;
+  align-items: center;
   justify-content: flex-end;
   margin-right: 5%;
 }
@@ -521,5 +544,14 @@ input:checked + .slider:before {
   flex: 1;
   align-items: center;
   margin-left: 2%;
+}
+
+.taskEditContainer{
+  display: flex;
+  align-items: center;
+}
+
+.taskEditContainer:hover {
+  cursor: pointer;
 }
 
