@@ -191,6 +191,7 @@ export function newProject() {
   }
 };
 
+//main body DOM 
 const projectDetails = function(project, projectArray) {
   clearMain();
 
@@ -218,7 +219,7 @@ const projectDetails = function(project, projectArray) {
   main.appendChild(projectInfoContainer);
 
   let taskColorToggle = true;
-
+  // start of task main
   const displayTasks = function(taskname, notes, date, task) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
@@ -251,6 +252,7 @@ const projectDetails = function(project, projectArray) {
     titleDateContainer.classList.add('titleDateContainer');
     taskNoteContainer.classList.add('taskNoteContainer');
     taskEditContainer.classList.add('taskEditContainer');
+    settingImg.classList.add('settingIcon');
 
     taskTitle.innerText = taskname;
     taskNoteContainer.innerText = notes;
@@ -283,7 +285,24 @@ const projectDetails = function(project, projectArray) {
     }
 
     settingImg.src = edit;
-    titleDateContainer.appendChild(settingImg);
+    taskEditContainer.appendChild(settingImg);
+    // Create the dropdown div
+    const dropdown = document.createElement('div');
+    dropdown.className = 'dropdown-content';
+
+    // Create the anchor elements
+    const editSelection = document.createElement('a');
+    editSelection.textContent = 'Edit';
+
+    const deleteSelection = document.createElement('a');
+    deleteSelection.textContent = 'Delete';
+
+    dropdown.appendChild(editSelection);
+    dropdown.appendChild(deleteSelection);
+
+    taskEditContainer.appendChild(dropdown);
+
+    titleDateContainer.appendChild(taskEditContainer);
 
     taskInformation.appendChild(titleDateContainer);
     projectInfoContainer.appendChild(taskInformation);
@@ -325,7 +344,24 @@ const projectDetails = function(project, projectArray) {
       taskNoteContainer.classList.toggle('open');
       toggleNotes.classList.toggle('open')
     });
+
+    taskEditContainer.addEventListener('click', () => {
+      dropdown.classList.toggle("show");
+    });
     return taskInformation;
+  };
+
+  window.onclick = function(event) {
+    if (!event.target.matches('.settingIcon')) {
+      let dropdowns = document.getElementsByClassName("dropdown-content");
+      let i;
+      for (i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      };
+    };
   };
 
   function displayAllTasks(taskArray) {
