@@ -118,6 +118,11 @@ export default function toggleSidebarButton() {
   sidebar.appendChild(projectContainer);
 };
 
+function resetOptions() {
+  allOptions.forEach(option => {
+    option.classList.remove('optionsClicked'); 
+  });
+};
 
 export function newProject() {
   let addProjectBtn = document.getElementById('add-container');
@@ -168,6 +173,7 @@ export function newProject() {
         newProjectAdd.addEventListener('click', () => {
           let projectTxt = newProjectAdd.innerText;
           projectDetails(projectTxt, newProject.tasksArray);
+          resetOptions();
           console.log(newProject);
         });
 
@@ -450,11 +456,11 @@ const projectDetails = function(project, projectArray) {
     }
   };
 
-  function resetOptions() {
-    allOptions.forEach(option => {
-      option.classList.remove('optionsClicked'); 
+  allProjects.forEach(project => {
+    project.addEventListener('click', () => {
+      resetOptions();
     });
-  };
+  });
   
   todo.addEventListener('click', () => {
     displayTaskType(allTasks);
