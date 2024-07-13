@@ -292,11 +292,10 @@ const projectDetails = function(project, projectArray) {
 
     settingImg.src = edit;
     taskEditContainer.appendChild(settingImg);
-    // Create the dropdown div
+    
     const dropdown = document.createElement('div');
     dropdown.className = 'dropdown-content';
 
-    // Create the anchor elements
     const editSelection = document.createElement('a');
     editSelection.textContent = 'Edit';
 
@@ -353,6 +352,23 @@ const projectDetails = function(project, projectArray) {
 
     taskEditContainer.addEventListener('click', () => {
       dropdown.classList.toggle("show");
+
+    });
+    deleteSelection.addEventListener('click', () => {
+      if (main.firstChild === 'projectInfoContainer') {
+        projectInfoContainer.removeChild(taskInformation);
+      } else {
+        main.removeChild(taskInformation);
+      }     
+      deleteTask(allTasks, task);
+      deleteTask(projectArray, task);
+      console.log(allTasks);
+      if (task.important === true) {
+        deleteTask(importantTasks, task);
+      };
+      if (task.complete === true) {
+        deleteTask(completedTasks, task);
+      };
     });
     return taskInformation;
   };
@@ -433,7 +449,7 @@ const projectDetails = function(project, projectArray) {
 
       let formattedTaskDate = null;
       if (taskDateValue) {
-        formattedTaskDate = format(new Date(taskDateValue), 'dd/MM/yyyy');
+        formattedTaskDate = format(new Date(taskDateValue), 'MM/dd/yyyy');
       }
 
       const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
