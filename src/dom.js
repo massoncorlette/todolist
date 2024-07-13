@@ -472,6 +472,12 @@ const projectDetails = function(project, projectArray) {
     }
   };
 
+  function filterUncompleteTasks(task) {
+    if (task.complete === false) {
+      return task;
+    }
+  };
+
   allProjects.forEach(project => {
     project.addEventListener('click', () => {
       resetOptions();
