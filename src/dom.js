@@ -11,6 +11,10 @@ import edit from './icons/edit.svg';
 import { format } from "date-fns";
 import {makeProject, makeTask, deleteTask, projects, allTasks, importantTasks, completedTasks} from './helpers';
 
+
+//use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
+//use filter for todo tasks on all tasks page
+
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
