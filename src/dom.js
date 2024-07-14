@@ -354,7 +354,7 @@ const projectDetails = function(project, projectArray) {
       dropdown.classList.toggle("show");
     });
     deleteSelection.addEventListener('click', () => {
-      if (main.firstChild === 'projectInfoContainer') {
+      if (main.firstChild.classList.contains('projectInfoContainer')) {
         projectInfoContainer.removeChild(taskInformation);
       } else {
         main.removeChild(taskInformation);
