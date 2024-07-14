@@ -352,7 +352,6 @@ const projectDetails = function(project, projectArray) {
 
     taskEditContainer.addEventListener('click', () => {
       dropdown.classList.toggle("show");
-
     });
     deleteSelection.addEventListener('click', () => {
       if (main.firstChild === 'projectInfoContainer') {
@@ -370,6 +369,9 @@ const projectDetails = function(project, projectArray) {
         deleteTask(completedTasks, task);
       };
     });
+    editSelection.addEventListener('click', () => {
+     addTaskForum();
+    })
     return taskInformation;
   };
 
@@ -394,20 +396,15 @@ const projectDetails = function(project, projectArray) {
   // direct function call to keep tasks displayed for every project
   displayAllTasks(projectArray);
 
-  addTaskBtn.addEventListener('click', () => {
+  function addTaskForum(taskInput, taskDetails, editBoolean) {
     projectInfoContainer.removeChild(addTaskContainer);
     const taskForum = document.createElement('form');
-    const taskInput = document.createElement('input');
     const taskDate = document.createElement('input');
-    const taskDetails = document.createElement('textarea');
     const submitBtn = document.createElement('button');
     const cancelSubmit = document.createElement('button');
     const taskContainer = document.createElement('div');
     const inputDateContainer = document.createElement('div'); 
     const inputBtnContainer = document.createElement('div');
-    
-    taskInput.placeholder = 'Enter new task';
-    taskDetails.placeholder = 'Notes:';
     
     taskInput.classList.add('taskInput');
     taskDetails.classList.add('taskDetails');
@@ -461,6 +458,16 @@ const projectDetails = function(project, projectArray) {
       projectInfoContainer.removeChild(taskContainer);
       projectInfoContainer.appendChild(addTaskContainer);
     });
+  };
+
+  addTaskBtn.addEventListener('click', () => {
+    const taskInput = document.createElement('input');
+    const taskDetails = document.createElement('textarea');
+
+    taskInput.placeholder = 'Enter new task';
+    taskDetails.placeholder = 'Notes:';
+
+    addTaskForum(taskInput, taskDetails);
   });
  // sidebar clicking logic
  // ADD a section for alltasks that shows uncompleted
