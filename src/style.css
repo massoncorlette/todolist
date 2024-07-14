@@ -48,12 +48,26 @@ form {
   width: 50%;
 }
 
-
 .taskContainer {
   display: flex;
   flex: 1;
   justify-content: center;
   margin-top: 2%;
+  position: relative; 
+}
+
+.taskContainerEdit {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  margin-left: 8%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%; 
+  height: 40%; 
 }
 
 #break-line {

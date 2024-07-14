@@ -370,7 +370,17 @@ const projectDetails = function(project, projectArray) {
       };
     });
     editSelection.addEventListener('click', () => {
-     addTaskForum();
+      const taskInput = document.createElement('input');
+      const taskDetails = document.createElement('textarea');
+  
+      taskInput.classList.add('taskInput');
+      taskDetails.classList.add('taskDetails');
+
+      taskInput.value = taskname;
+      taskDetails.innerHTML = notes;
+
+      const editBoolean = true;
+      addTaskForum(taskInput, taskDetails, editBoolean);
     })
     return taskInformation;
   };
@@ -397,7 +407,6 @@ const projectDetails = function(project, projectArray) {
   displayAllTasks(projectArray);
 
   function addTaskForum(taskInput, taskDetails, editBoolean) {
-    projectInfoContainer.removeChild(addTaskContainer);
     const taskForum = document.createElement('form');
     const taskDate = document.createElement('input');
     const submitBtn = document.createElement('button');
@@ -406,8 +415,6 @@ const projectDetails = function(project, projectArray) {
     const inputDateContainer = document.createElement('div'); 
     const inputBtnContainer = document.createElement('div');
     
-    taskInput.classList.add('taskInput');
-    taskDetails.classList.add('taskDetails');
     taskDate.classList.add('taskDate');
     submitBtn.classList.add('submitBtn');
     cancelSubmit.classList.add('cancelSubmit');
@@ -417,8 +424,9 @@ const projectDetails = function(project, projectArray) {
     taskDate.type = 'date';
     submitBtn.textContent = 'Add Task';
     cancelSubmit.textContent = 'Cancel';
-    taskContainer.classList.add('taskContainer');
     inputDateContainer.classList.add('inputContainer'); 
+
+    editBoolean ? taskContainer.classList.add('taskContainerEdit') : taskContainer.classList.add('taskContainer') && projectInfoContainer.removeChild(addTaskContainer);
     
     inputDateContainer.appendChild(taskInput);
     inputDateContainer.appendChild(taskDate);
@@ -430,11 +438,16 @@ const projectDetails = function(project, projectArray) {
     taskForum.appendChild(inputBtnContainer);
     
     taskContainer.appendChild(taskForum);
-    projectInfoContainer.appendChild(taskContainer);
+
+    editBoolean ? main.appendChild(taskContainer) : projectInfoContainer.appendChild(taskContainer);
 
     cancelSubmit.addEventListener('click', () => {
-      projectInfoContainer.appendChild(addTaskContainer);
-      projectInfoContainer.removeChild(taskContainer);
+      if (!editBoolean) {
+        projectInfoContainer.appendChild(addTaskContainer);
+        projectInfoContainer.removeChild(taskContainer);
+      } else {
+        main.removeChild(taskContainer);
+      }
     });
 
     submitBtn.addEventListener('click', (event) => {
@@ -464,10 +477,15 @@ const projectDetails = function(project, projectArray) {
     const taskInput = document.createElement('input');
     const taskDetails = document.createElement('textarea');
 
+    taskInput.classList.add('taskInput');
+    taskDetails.classList.add('taskDetails');
+
     taskInput.placeholder = 'Enter new task';
     taskDetails.placeholder = 'Notes:';
 
-    addTaskForum(taskInput, taskDetails);
+    const editBoolean = false;
+
+    addTaskForum(taskInput, taskDetails, editBoolean);
   });
  // sidebar clicking logic
  // ADD a section for alltasks that shows uncompleted
