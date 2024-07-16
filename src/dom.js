@@ -384,7 +384,7 @@ const projectDetails = function(project, projectArray) {
       taskDetails.innerHTML = notes;
 
       const editBoolean = true;
-      addTaskForum(taskInput, taskDetails, editBoolean);
+      addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task);
     })
     return taskInformation;
   };
@@ -410,7 +410,7 @@ const projectDetails = function(project, projectArray) {
   // direct function call to keep tasks displayed for every project
   displayAllTasks(projectArray);
 
-  function addTaskForum(taskInput, taskDetails, editBoolean) {
+  function addTaskForum(taskInput, taskDetails, editBoolean, projectTasks, task) {
     const taskForum = document.createElement('form');
     const taskDate = document.createElement('input');
     const submitBtn = document.createElement('button');
@@ -470,10 +470,28 @@ const projectDetails = function(project, projectArray) {
       allTasks.push(newTask);
       projectArray.push(newTask);
 
-      displayTasks(taskName, taskNotes, formattedTaskDate, newTask);
+      let taskInfo = displayTasks(taskName, taskNotes, formattedTaskDate, newTask);
 
-      projectInfoContainer.removeChild(taskContainer);
-      projectInfoContainer.appendChild(addTaskContainer);
+      if (editBoolean) {
+        const taskContainerEdit = document.querySelector('.taskContainerEdit');
+        const taskToChange = document.querySelector('.taskInformation');
+       
+        deleteTask(allTasks, task);
+        deleteTask(projectTasks, task);
+
+        if (main.firstChild.classList.contains('projectInfoContainer')) {
+          projectInfoContainer.removeChild(task);
+          projectInfoContainer.appendChild(taskInfo);
+          projectInfoContainer.appendChild(addTaskContainer);
+        } else {
+          main.removeChild(task);
+          main.appendChild(taskInfo);
+          main.removeChild(taskContainerEdit);
+        }
+      } else {
+        projectInfoContainer.removeChild(taskContainer); 
+        projectInfoContainer.appendChild(addTaskContainer);     
+      }
     });
   };
 
