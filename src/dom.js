@@ -314,7 +314,6 @@ const projectDetails = function(project, projectArray) {
     titleDateContainer.appendChild(taskEditContainer);
 
     taskInformation.appendChild(titleDateContainer);
-    projectInfoContainer.appendChild(addTaskContainer);
 
     toggleComplete.addEventListener('click', () => {
       if (completedImg.src === checkBox) {
@@ -402,14 +401,23 @@ const projectDetails = function(project, projectArray) {
   };
 
   function displayAllTasks(taskArray) {
+    if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+      const projectTitle = main.firstChild;
+      clearMain();
+      main.appendChild(projectTitle); 
+    }
     for (let i = 0; i < taskArray.length; i++) {
       let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
       if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
         projectInfoContainer.appendChild(taskToDisplay);
       } else {
+        while (main.firstChild && main.firstChild.classList.contains('taskInformation')) {
+          main.removeChild(main.firstChild);
+        }
         main.appendChild(taskToDisplay);
       }
     };
+    projectInfoContainer.appendChild(addTaskContainer);
   };
   // direct function call to keep tasks displayed for every project
   displayAllTasks(projectArray);
@@ -469,10 +477,7 @@ const projectDetails = function(project, projectArray) {
       if (taskDateValue) {
         formattedTaskDate = format(new Date(taskDateValue), 'MM/dd/yyyy');
       }
-
       const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
-      allTasks.push(newTask);
-      projectArray.push(newTask);
 
       if (editBoolean) {
         addTask(allTasks, newTask);
@@ -483,6 +488,8 @@ const projectDetails = function(project, projectArray) {
         main.removeChild(taskContainer); 
 
       } else {
+        allTasks.push(newTask);
+        projectArray.push(newTask);
         projectInfoContainer.removeChild(taskContainer);
         displayAllTasks(projectArray); 
         projectInfoContainer.appendChild(addTaskContainer);     
