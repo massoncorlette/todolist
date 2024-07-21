@@ -21,13 +21,16 @@ export function makeTask(task,notes,date) {
     important: this.important,
     complete: this.complete
   }
-
 };
 
 export function deleteTask(tasksArray, selectedTask) {
   tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
 };
 
+export function addTask(tasksArray, selectedTask) {
+  const index = tasksArray.indexOf(selectedTask);
+  tasksArray.splice(index, 0, selectedTask);
+};
 //each project will have its own task array
 export function makeProject(title) {
   this.title = title;
@@ -50,6 +53,9 @@ export function makeProject(title) {
     deleteProject
   };
 };
+
+
+
 
 
 

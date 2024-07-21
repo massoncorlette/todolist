@@ -9,7 +9,7 @@ import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import edit from './icons/edit.svg';
 import { format } from "date-fns";
-import {makeProject, makeTask, deleteTask, projects, allTasks, importantTasks, completedTasks} from './helpers';
+import {makeProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks} from './helpers';
 
 
 //use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
@@ -314,7 +314,6 @@ const projectDetails = function(project, projectArray) {
     titleDateContainer.appendChild(taskEditContainer);
 
     taskInformation.appendChild(titleDateContainer);
-    projectInfoContainer.appendChild(taskInformation);
     projectInfoContainer.appendChild(addTaskContainer);
 
     toggleComplete.addEventListener('click', () => {
@@ -404,7 +403,12 @@ const projectDetails = function(project, projectArray) {
 
   function displayAllTasks(taskArray) {
     for (let i = 0; i < taskArray.length; i++) {
-      displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
+      let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
+      if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+        projectInfoContainer.appendChild(taskToDisplay);
+      } else {
+        main.appendChild(taskToDisplay);
+      }
     };
   };
   // direct function call to keep tasks displayed for every project
@@ -448,7 +452,7 @@ const projectDetails = function(project, projectArray) {
     cancelSubmit.addEventListener('click', () => {
       if (!editBoolean) {
         projectInfoContainer.appendChild(addTaskContainer);
-        projectInfoContainer.removeChild(taskContainer);
+        projectInfoContainer.removeChild(taskInformation);
       } else {
         main.removeChild(taskContainer);
       }
@@ -470,26 +474,17 @@ const projectDetails = function(project, projectArray) {
       allTasks.push(newTask);
       projectArray.push(newTask);
 
-      let taskInfo = displayTasks(taskName, taskNotes, formattedTaskDate, newTask);
-
       if (editBoolean) {
-        const taskContainerEdit = document.querySelector('.taskContainerEdit');
-        const taskToChange = document.querySelector('.taskInformation');
-       
+        addTask(allTasks, newTask);
+        addTask(projectTasks, newTask);
+
         deleteTask(allTasks, task);
         deleteTask(projectTasks, task);
+        main.removeChild(taskContainer); 
 
-        if (main.firstChild.classList.contains('projectInfoContainer')) {
-          projectInfoContainer.removeChild(task);
-          projectInfoContainer.appendChild(taskInfo);
-          projectInfoContainer.appendChild(addTaskContainer);
-        } else {
-          main.removeChild(task);
-          main.appendChild(taskInfo);
-          main.removeChild(taskContainerEdit);
-        }
       } else {
-        projectInfoContainer.removeChild(taskContainer); 
+        projectInfoContainer.removeChild(taskContainer);
+        displayAllTasks(projectArray); 
         projectInfoContainer.appendChild(addTaskContainer);     
       }
     });
@@ -511,13 +506,6 @@ const projectDetails = function(project, projectArray) {
   });
  // sidebar clicking logic
  // ADD a section for alltasks that shows uncompleted
-  function displayTaskType(taskArray) {
-    clearMain();
-    for (let i = 0; i < taskArray.length; i++) {
-      let addedTask = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
-      main.appendChild(addedTask);    
-    }
-  };
 
   function filterUncompleteTasks(task) {
     if (task.complete === false) {
@@ -532,19 +520,20 @@ const projectDetails = function(project, projectArray) {
   });
   
   todo.addEventListener('click', () => {
-    displayTaskType(allTasks);
+    clearMain();
+    displayAllTasks(allTasks);
     resetOptions(); 
     todo.classList.add('optionsClicked');
   });
   
   important.addEventListener('click', () => {
-    displayTaskType(importantTasks);
+    displayAllTasks(importantTasks);
     resetOptions(); 
     important.classList.add('optionsClicked');
   });
   
   completed.addEventListener('click', () => {
-    displayTaskType(completedTasks);
+    displayAllTasks(completedTasks);
     resetOptions(); 
     completed.classList.add('optionsClicked');
   });
