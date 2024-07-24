@@ -387,35 +387,33 @@ const projectDetails = function(project, projectArray) {
     return taskInformation;
   };
 
-  window.onclick = function(event) {
-    if (!event.target.matches('.settingIcon')) {
-      let dropdowns = document.getElementsByClassName("dropdown-content");
-      let i;
-      for (i = 0; i < dropdowns.length; i++) {
-        let openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      };
-    };
-  };
-
+  //Made my elements too early now I have this very specific function to bail me out
+  //lesson learned..
   function displayAllTasks(taskArray) {
     if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
-      const projectTitle = main.firstChild;
-      clearMain();
-      main.appendChild(projectTitle); 
+     
+      const projectSelector = document.querySelector('.projectInfoContainer');
+      
+      const title = projectSelector.firstElementChild;
+      
+      while (projectSelector.firstChild) {
+          projectSelector.removeChild(projectSelector.firstChild);
+      }
+      projectSelector.appendChild(title);
+ 
+      main.appendChild(projectSelector);
+  } else {
+      while (main.firstChild) {
+        main.removeChild(main.firstChild);
+      }
     }
     for (let i = 0; i < taskArray.length; i++) {
       let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
       if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
         projectInfoContainer.appendChild(taskToDisplay);
       } else {
-        while (main.firstChild && main.firstChild.classList.contains('taskInformation')) {
-          main.removeChild(main.firstChild);
-        }
         main.appendChild(taskToDisplay);
-      }
+      };
     };
     projectInfoContainer.appendChild(addTaskContainer);
   };
@@ -487,6 +485,8 @@ const projectDetails = function(project, projectArray) {
         deleteTask(projectTasks, task);
         main.removeChild(taskContainer); 
 
+        displayAllTasks(projectArray);
+        projectInfoContainer.appendChild(addTaskContainer);
       } else {
         allTasks.push(newTask);
         projectArray.push(newTask);
@@ -534,12 +534,14 @@ const projectDetails = function(project, projectArray) {
   });
   
   important.addEventListener('click', () => {
+    clearMain();
     displayAllTasks(importantTasks);
     resetOptions(); 
     important.classList.add('optionsClicked');
   });
   
   completed.addEventListener('click', () => {
+    clearMain();
     displayAllTasks(completedTasks);
     resetOptions(); 
     completed.classList.add('optionsClicked');
