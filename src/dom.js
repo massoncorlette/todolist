@@ -24,6 +24,7 @@ const calendar = document.getElementById('calendar');
 const completed = document.getElementById('completed');
 const allOptions = document.querySelectorAll('.options');
 const allProjects = document.querySelectorAll('.addedProjects');
+const starterTxt = document.getElementById('startertxt');
 
 function clearMain() {
   while (main.firstChild) {
@@ -390,6 +391,7 @@ const projectDetails = function(project, projectArray) {
   //Made my elements too early now I have this very specific function to bail me out
   //lesson learned..
   function displayAllTasks(taskArray) {
+
     if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
      
       const projectSelector = document.querySelector('.projectInfoContainer');
@@ -406,6 +408,7 @@ const projectDetails = function(project, projectArray) {
       while (main.firstChild) {
         main.removeChild(main.firstChild);
       }
+      setupOrderByContainer();
     }
     for (let i = 0; i < taskArray.length; i++) {
       let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
@@ -457,8 +460,8 @@ const projectDetails = function(project, projectArray) {
 
     cancelSubmit.addEventListener('click', () => {
       if (!editBoolean) {
+        projectInfoContainer.removeChild(taskContainer);
         projectInfoContainer.appendChild(addTaskContainer);
-        projectInfoContainer.removeChild(taskInformation);
       } else {
         main.removeChild(taskContainer);
       }
@@ -520,6 +523,41 @@ const projectDetails = function(project, projectArray) {
     }
   };
 
+  function setupOrderByContainer() {
+    const orderByContainer = document.createElement('div');
+    const orderTaskBtn = document.createElement('div');
+    const orderTxt = document.createElement('p');
+    
+    const dropdown = document.createElement('div');
+    dropdown.className = 'dropdown-content';
+
+    const editSelection = document.createElement('a');
+    editSelection.textContent = 'Date';
+
+    const deleteSelection = document.createElement('a');
+    deleteSelection.textContent = 'Status';
+
+    dropdown.appendChild(editSelection);
+    dropdown.appendChild(deleteSelection);
+    dropdown.className = 'dropdown-content';
+  
+    orderByContainer.classList.add('orderByContainer');
+    orderTaskBtn.classList.add('orderTaskBtn');
+  
+    orderTxt.innerText = "Order by";
+    orderTxt.id = "ordertxt";
+  
+    orderByContainer.appendChild(orderTxt);
+    orderByContainer.appendChild(orderTaskBtn);
+    orderByContainer.appendChild(dropdown);
+  
+    main.appendChild(orderByContainer);
+
+    orderTaskBtn.addEventListener('click',  () => {
+      dropdown.classList.toggle("show");
+    });
+  };
+
   allProjects.forEach(project => {
     project.addEventListener('click', () => {
       resetOptions();
@@ -528,22 +566,36 @@ const projectDetails = function(project, projectArray) {
   
   todo.addEventListener('click', () => {
     clearMain();
-    displayAllTasks(allTasks);
+    if (allTasks.length === 0) {
+      main.appendChild(starterTxt);
+    } else {
+      setupOrderByContainer();
+      displayAllTasks(allTasks);
+    }
     resetOptions(); 
     todo.classList.add('optionsClicked');
   });
   
   important.addEventListener('click', () => {
     clearMain();
-    displayAllTasks(importantTasks);
+    if (importantTasks.length === 0) {
+      main.appendChild(starterTxt);
+    } else {
+      displayAllTasks(importantTasks);
+    }
     resetOptions(); 
     important.classList.add('optionsClicked');
   });
   
   completed.addEventListener('click', () => {
     clearMain();
-    displayAllTasks(completedTasks);
+    if (completedTasks.length === 0) {
+      main.appendChild(starterTxt);
+    } else {
+      displayAllTasks(completedTasks);
+    }
     resetOptions(); 
     completed.classList.add('optionsClicked');
   });
 };
+
