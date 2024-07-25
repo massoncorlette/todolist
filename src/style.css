@@ -48,6 +48,7 @@ form {
   background-color: rgb(236, 236, 236);
   padding: 4%;
   width: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .taskContainer {
@@ -223,6 +224,7 @@ input[type="text"] , textarea {
   justify-content: flex-start;
   align-items: center;
   height: 50%;
+  border-bottom: 1px solid var(--fifth-color);
   background-color: var(--highlight);
 }
 

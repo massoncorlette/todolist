@@ -1,4 +1,5 @@
 export {projects, allTasks, importantTasks, completedTasks};
+import { format } from "date-fns";
 
 // logic goes here
 let projects = [];
@@ -53,6 +54,10 @@ export function makeProject(title) {
     deleteProject
   };
 };
+
+export function orderTasks(taskArray) {
+  let orderedTaskArray = [];
+}
 
 
 

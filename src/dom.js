@@ -523,7 +523,7 @@ const projectDetails = function(project, projectArray) {
     }
   };
 
-  function setupOrderByContainer() {
+  function setupOrderByContainer(taskArray) {
     const orderByContainer = document.createElement('div');
     const orderTaskBtn = document.createElement('div');
     const orderTxt = document.createElement('p');
@@ -531,14 +531,14 @@ const projectDetails = function(project, projectArray) {
     const dropdown = document.createElement('div');
     dropdown.className = 'dropdown-content';
 
-    const editSelection = document.createElement('a');
-    editSelection.textContent = 'Date';
+    const dateSelection = document.createElement('a');
+    dateSelection.textContent = 'Date';
 
-    const deleteSelection = document.createElement('a');
-    deleteSelection.textContent = 'Status';
+    const statusSelection = document.createElement('a');
+    statusSelection.textContent = 'Status';
 
-    dropdown.appendChild(editSelection);
-    dropdown.appendChild(deleteSelection);
+    dropdown.appendChild(dateSelection);
+    dropdown.appendChild(statusSelection);
     dropdown.className = 'dropdown-content';
   
     orderByContainer.classList.add('orderByContainer');
@@ -556,6 +556,10 @@ const projectDetails = function(project, projectArray) {
     orderTaskBtn.addEventListener('click',  () => {
       dropdown.classList.toggle("show");
     });
+
+    dateSelection.addEventListener('click', () => {
+      
+    })
   };
 
   allProjects.forEach(project => {
