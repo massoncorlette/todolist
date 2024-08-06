@@ -603,3 +603,10 @@ const projectDetails = function(project, projectArray) {
   });
 };
 
+export function setTheme() {
+  const root = document.documentElement;
+  const newTheme = root.className === 'dark' ? 'light' : 'dark';
+  root.className = newTheme;
+}
+const toggleSwitch = document.querySelector('#toggleClick');
+toggleSwitch.addEventListener('click', setTheme);

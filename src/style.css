@@ -1,5 +1,5 @@
-* {border: 0px Solid red}
 :root {
+  --header-bg: rgb(246, 250, 253);
   --primary-color: rgb(0, 163, 163);
   --secondary-color: rgb(204, 202, 202);
   --third-color:  rgb(231, 230, 230);
@@ -8,6 +8,29 @@
   --sixth-color: rgb(223, 223, 223);
   --highlight: rgba(255, 248, 218, 0.801);
 }
+
+:root.light {
+  --header-bg: rgb(246, 250, 253);
+  --primary-color: rgb(0, 163, 163);
+  --secondary-color: rgb(204, 202, 202);
+  --third-color:  rgb(231, 230, 230);
+  --fourth-color: rgba(0, 0, 0, 0.644);
+  --fifth-color: rgb(204, 202, 202);
+  --sixth-color: rgb(223, 223, 223);
+  --highlight: rgba(255, 248, 218, 0.801);
+}
+
+:root.dark {
+  --header-bg: rgb(63, 63, 63);
+  --primary-color: rgb(1, 218, 218);
+  --secondary-color: rgb(204, 202, 202);
+  --third-color:  rgb(231, 230, 230);
+  --fourth-color: rgba(255, 255, 255, 0.89);
+  --fifth-color: rgb(204, 202, 202);
+  --sixth-color: rgb(61, 61, 61);
+  --highlight: rgba(255, 248, 218, 0.801);
+}
+
 
 body {
   min-height: 100vh;
@@ -91,7 +114,7 @@ form {
   grid-column: 1 / 21;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20,1fr);
-  background-color: rgb(246, 250, 253);
+  background-color: var(--header-bg);
 }
 
 .sidebar-container {
@@ -215,7 +238,7 @@ input[type="text"] , textarea {
 .projectInfoContainer {
   width: 100%;
   height: 10%;
-  background-color: #dfdfdf;
+  background-color: var(--sixth-color);
 }
 
 .titleBtnContainer {
@@ -632,6 +655,8 @@ input:checked + .slider:before {
 .dropdown-content a:hover {background-color: #ddd; cursor: pointer;}
 
 .show {display:block;}
+
+
 
 
 
