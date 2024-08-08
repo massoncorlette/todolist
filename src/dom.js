@@ -219,6 +219,7 @@ const projectDetails = function(project, projectArray) {
   addTaskContainer.classList.add('addTaskContainer');
 
   title.innerText = project;
+  addTxt.id = "addtxt";
   addTxt.innerText = "Add task";
  
   titleBtnContainer.appendChild(title);
