@@ -526,14 +526,14 @@ const projectDetails = function(project, projectArray) {
     const dropdown = document.createElement('div');
     dropdown.className = 'dropdown-content';
 
-    const dateSelection = document.createElement('a');
-    dateSelection.textContent = 'Date';
+    const dateSelectionAsc = document.createElement('a');
+    dateSelectionAsc.textContent = 'Newest';
 
-    const statusSelection = document.createElement('a');
-    statusSelection.textContent = 'Status';
+    const dateSelectionDesc = document.createElement('a');
+    dateSelectionDesc.textContent = 'Oldest';
 
-    dropdown.appendChild(dateSelection);
-    dropdown.appendChild(statusSelection);
+    dropdown.appendChild(dateSelectionAsc);
+    dropdown.appendChild(dateSelectionDesc);
     dropdown.className = 'dropdown-content';
   
     orderByContainer.classList.add('orderByContainer');
@@ -552,11 +552,18 @@ const projectDetails = function(project, projectArray) {
       dropdown.classList.toggle("show");
     });
 
-    dateSelection.addEventListener('click', () => {
+    dateSelectionAsc.addEventListener('click', () => {
       let orderedArray = orderTasks();
       console.log(orderedArray);
       displayAllTasks(orderedArray);
-    })
+    });
+
+    dateSelectionDesc.addEventListener('click', () => {
+      let desc = true;
+      let orderedArray = orderTasks(desc);
+      console.log(orderedArray);
+      displayAllTasks(orderedArray);
+    });
   };
 
   allProjects.forEach(project => {
