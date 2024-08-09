@@ -13,6 +13,8 @@
   --forum: rgb(255,255,255);
   --sidebartxt:rgb(75, 75, 75);
   --optionshover: rgb(204, 202, 202);
+  --taskInfo: rgb(255, 255, 255);
+  --taskInfoAlt: rgb(226, 226, 226);
 }
 
 :root.light {
@@ -30,6 +32,8 @@
   --forum: rgb(255,255,255);
   --sidebartxt:rgb(75, 75, 75);
   --optionshover: rgb(204, 202, 202);
+  --taskInfo: rgb(255, 255, 255);
+  --taskInfoAlt: rgb(226, 226, 226);
 }
 
 :root.dark {
@@ -47,6 +51,8 @@
   --forum: rgb(92, 92, 92);
   --sidebartxt:rgb(199, 199, 199);
   --optionshover: rgb(54, 54, 54);
+  --taskInfo: rgb(61, 61, 61);
+  --taskInfoAlt: rgb(80, 80, 80);
 }
 
 
@@ -435,7 +441,7 @@ button:hover {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: var(--primary-color);
 }
 
 input:focus + .slider {
@@ -566,19 +572,21 @@ input:checked + .slider:before {
 #ordertxt {
   font-style: italic;
   font-size: 20px;
+  color: var(--maintxt);
 }
 
 .taskInformation {
   border-bottom: 1px solid var(--secondary-color);
   justify-content: space-around;
   padding: 2%;
+  background-color: var(--taskInfo);
 }
 
 .taskInformationAlt {
   border-bottom: 1px solid var(--secondary-color);
   justify-content: space-around;
   padding: 2%;
-  background-color: rgb(240, 240, 240);
+  background-color: var(--taskInfoAlt);
 }
 
 
@@ -607,10 +615,12 @@ input:checked + .slider:before {
   margin-left: 5%;
   width: 100%;
   height: 2%;
+  color: var(--maintxt);
 }
 
 .taskTitle {
   font-size: 24px;
+  color: var(--maintxt);
 }
 
 .toggleNotes {
