@@ -1,5 +1,5 @@
 export {projects, allTasks, importantTasks, completedTasks};
-import { format } from "date-fns";
+import { compareAsc } from "date-fns";
 
 // logic goes here
 let projects = [];
@@ -55,10 +55,15 @@ export function makeProject(title) {
   };
 };
 
-export function orderTasks(taskArray) {
-  let orderedTaskArray = [];
-}
+export function orderTasks() {
+  return allTasks.sort((a, b) => {
+  
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
 
+    return compareAsc(dateA, dateB);
+  });
+}
 
 
 

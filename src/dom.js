@@ -9,7 +9,7 @@ import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import edit from './icons/edit.svg';
 import { format } from "date-fns";
-import {makeProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks} from './helpers';
+import {makeProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
 
 
 //use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
@@ -518,13 +518,7 @@ const projectDetails = function(project, projectArray) {
  // sidebar clicking logic
  // ADD a section for alltasks that shows uncompleted
 
-  function filterUncompleteTasks(task) {
-    if (task.complete === false) {
-      return task;
-    }
-  };
-
-  function setupOrderByContainer(taskArray) {
+  function setupOrderByContainer() {
     const orderByContainer = document.createElement('div');
     const orderTaskBtn = document.createElement('div');
     const orderTxt = document.createElement('p');
@@ -559,7 +553,9 @@ const projectDetails = function(project, projectArray) {
     });
 
     dateSelection.addEventListener('click', () => {
-      
+      let orderedArray = orderTasks();
+      console.log(orderedArray);
+      displayAllTasks(orderedArray);
     })
   };
 
@@ -574,7 +570,7 @@ const projectDetails = function(project, projectArray) {
     if (allTasks.length === 0) {
       main.appendChild(starterTxt);
     } else {
-      setupOrderByContainer();
+      setupOrderByContainer(allTasks);
       displayAllTasks(allTasks);
     }
     resetOptions(); 
