@@ -1,10 +1,29 @@
 export {projects, allTasks, importantTasks, completedTasks};
 
-// logic goes here
 let projects = [];
 let allTasks = [];
 let importantTasks = [];
 let completedTasks = [];
+
+// functions to store and retrieve from local storage
+// stringify to ensure array values are strings 
+function storeArray(key, array) {
+  if (Array.isArray(array)) {
+    localStorage.setItem(key, JSON.stringify(array));
+  } else {
+    console.error("not an array.");
+  }
+};
+
+function getArray(key) {
+  const storedArray = localStorage.getItem(key);
+  if (storedArray) {
+    return JSON.parse(storedArray);
+  } else {
+    console.warn(`No data found`);
+    return [];
+  }
+};
 
 //factory functions so each project & task has methods and properties
 export function makeTask(task,notes,date) {
@@ -39,10 +58,12 @@ export function makeProject(title) {
 
   function addProject(project) {
     projects.push(project);
+    storeArray('projects', projects);
   };
 
   function deleteProject(project) {
     projects.splice(projects.indexOf(project), 1);
+    storeArray('projects', projects);
   };
 
   return {
