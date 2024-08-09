@@ -1,5 +1,4 @@
 export {projects, allTasks, importantTasks, completedTasks};
-import { compareAsc, compareDesc } from "date-fns";
 
 // logic goes here
 let projects = [];
@@ -55,19 +54,6 @@ export function makeProject(title) {
   };
 };
 
-export function orderTasks(desc) {
-  return allTasks.sort((a, b) => {
-  
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-
-    if (desc) {
-      return compareAsc(dateA, dateB);
-    } else {
-      return compareDesc(dateA, dateB);
-    }
-  });
-}
 
 
 

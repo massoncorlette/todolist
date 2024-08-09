@@ -8,7 +8,7 @@ import checkBox from './icons/checkbox.svg';
 import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import edit from './icons/edit.svg';
-import { format } from "date-fns";
+import { compareAsc, compareDesc, format } from "date-fns";
 import {makeProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
 
 
@@ -409,7 +409,7 @@ const projectDetails = function(project, projectArray) {
       while (main.firstChild) {
         main.removeChild(main.firstChild);
       }
-      setupOrderByContainer();
+      setupOrderByContainer(taskArray);
     }
     for (let i = 0; i < taskArray.length; i++) {
       let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
@@ -518,7 +518,7 @@ const projectDetails = function(project, projectArray) {
  // sidebar clicking logic
  // ADD a section for alltasks that shows uncompleted
 
-  function setupOrderByContainer() {
+  function setupOrderByContainer(taskArray) {
     const orderByContainer = document.createElement('div');
     const orderTaskBtn = document.createElement('div');
     const orderTxt = document.createElement('p');
@@ -553,18 +553,33 @@ const projectDetails = function(project, projectArray) {
     });
 
     dateSelectionAsc.addEventListener('click', () => {
-      let orderedArray = orderTasks();
+      let orderedArray = orderTasks(taskArray);
       console.log(orderedArray);
       displayAllTasks(orderedArray);
     });
 
     dateSelectionDesc.addEventListener('click', () => {
       let desc = true;
-      let orderedArray = orderTasks(desc);
+      let orderedArray = orderTasks(taskArray, desc);
       console.log(orderedArray);
       displayAllTasks(orderedArray);
     });
   };
+
+  function orderTasks(taskArray,desc) {
+    return taskArray.sort((a, b) => {
+    
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+  
+      if (desc) {
+        return compareAsc(dateA, dateB);
+      } else {
+        return compareDesc(dateA, dateB);
+      }
+      });
+    };
+  
 
   allProjects.forEach(project => {
     project.addEventListener('click', () => {
@@ -577,7 +592,6 @@ const projectDetails = function(project, projectArray) {
     if (allTasks.length === 0) {
       main.appendChild(starterTxt);
     } else {
-      setupOrderByContainer(allTasks);
       displayAllTasks(allTasks);
     }
     resetOptions(); 

@@ -596,6 +596,7 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: flex-end;
   margin-right: 5%;
+  color: var(--sidebartxt);
 }
 
 .titleDateContainer {
