@@ -159,9 +159,18 @@ export function newProject() {
 
     addBtn.addEventListener('click', (event) => {
       const allProjects = document.querySelector('#allProjects');
+      const projectName = projectInput.value;
+
+      // checking for project name duplicates
+      for (let i=0;i<projects.length;i++) {
+        if (projectName === projects[i].title) {
+          event.preventDefault(); 
+          alert('Project name already exists!'); 
+          return;         
+        }
+      };
       
       if (projectInput.value) {
-        const projectName = projectInput.value;
         const newProjectAdd = document.createElement('div');
         newProjectAdd.classList.add('addedProjects');
         const projectNameTxt = document.createElement('p');
@@ -483,6 +492,15 @@ const projectDetails = function(project, projectArray) {
       const taskNotes = taskDetails.value;
       const taskDateValue = taskDate.value;
 
+      // making sure no task name duplicates
+      for (let i=0;i<projectArray.length;i++) {
+        if (taskName === projectArray[i].task) {
+          event.preventDefault(); 
+          alert('Project name already exists!'); 
+          return;         
+        }
+      };
+
       let formattedTaskDate = null;
       if (taskDateValue) {
         formattedTaskDate = format(new Date(taskDateValue), 'MM/dd/yyyy');
@@ -510,7 +528,7 @@ const projectDetails = function(project, projectArray) {
           deleteTask(completedTasks, task);
           storeArray('completedTasks', completedTasks);
         };
-        
+
       } else {
         allTasks.push(newTask);
         projectArray.push(newTask);
