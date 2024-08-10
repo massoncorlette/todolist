@@ -28,6 +28,13 @@ export function getArray(key) {
   }
 };
 
+export function populateArrays() {
+  allTasks = getArray('allTasks');
+  importantTasks = getArray('importantTasks');
+  completedTasks = getArray('completedTasks');
+  projects = getArray('projects');
+};
+
 //factory functions so each project & task has methods and properties
 export function makeTask(task,notes,date) {
   this.task = task;
@@ -68,12 +75,14 @@ export function makeProject(title) {
 
 export function addProject(project) {
   projects.push(project);
-  storeArray(project.title, projects);
+  storeArray(project.title, project);
+  storeArray('projects', projects);
 };
 
 export function deleteProject(project) {
   projects.splice(projects.indexOf(project), 1);
-  storeArray(project.title, projects);
+  storeArray(project.title, project);
+  storeArray('projects', projects);
 };
 
 

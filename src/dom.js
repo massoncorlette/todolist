@@ -519,7 +519,7 @@ const projectDetails = function(project, projectArray) {
         projectInfoContainer.appendChild(addTaskContainer);
         storeArray('allTasks', allTasks);
         storeArray(title.innerText, projectArray);
-
+        storeArray('projects', projects);
         if (task.important === true) {
           deleteTask(importantTasks, task);
           storeArray('importantTasks', importantTasks);
@@ -537,6 +537,7 @@ const projectDetails = function(project, projectArray) {
         projectInfoContainer.appendChild(addTaskContainer); 
         storeArray('allTasks', allTasks);    
         storeArray(title.innerText, projectArray);
+        storeArray('projects', projects);
       }
     });
   };
