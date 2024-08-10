@@ -9,7 +9,7 @@ import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import edit from './icons/edit.svg';
 import { compareAsc, compareDesc, format } from "date-fns";
-import {storeArray, getArray, makeProject, addProject, deleteProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
+import {populateArrays,storeArray, getArray, makeProject, addProject, deleteProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
 
 
 //use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
@@ -129,6 +129,7 @@ function resetOptions() {
   });
 };
 
+//entry
 export function newProject() {
   const sidebarProjectContainer = document.querySelector('#project-container');
   let addProjectBtn = document.getElementById('add-container');
@@ -140,11 +141,14 @@ export function newProject() {
   projectInput.type = 'text';
   projectInput.id = 'projectInput';
   projectInput.placeholder = "Enter project name";
+  
+  populateArrays();
 
   function populateProjects() {
     const allProjects = document.querySelector('#allProjects');
 
     if (projects) {
+
       for (let i=0;i<projects.length;i++) {
         let projectName = projects[i].title;
 
@@ -585,9 +589,7 @@ const projectDetails = function(project, projectArray) {
 
     addTaskForum(taskInput, taskDetails, editBoolean);
   });
- // sidebar clicking logic
- // ADD a section for alltasks that shows uncompleted
-
+ 
   function setupOrderByContainer(taskArray) {
     const orderByContainer = document.createElement('div');
     const orderTaskBtn = document.createElement('div');
@@ -649,14 +651,16 @@ const projectDetails = function(project, projectArray) {
       }
       });
     };
-  
 
   allProjects.forEach(project => {
     project.addEventListener('click', () => {
       resetOptions();
     });
   });
-  
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+  });
   todo.addEventListener('click', () => {
     clearMain();
     if (allTasks.length === 0) {
@@ -690,7 +694,6 @@ const projectDetails = function(project, projectArray) {
     completed.classList.add('optionsClicked');
   });
 };
-
 export function setTheme() {
   const root = document.documentElement;
   const newTheme = root.className === 'dark' ? 'light' : 'dark';
