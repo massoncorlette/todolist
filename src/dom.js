@@ -141,6 +141,35 @@ export function newProject() {
   projectInput.id = 'projectInput';
   projectInput.placeholder = "Enter project name";
 
+  function populateProjects() {
+    const allProjects = document.querySelector('#allProjects');
+
+    if (projects) {
+      for (let i=0;i<projects.length;i++) {
+        let projectName = projects[i].title;
+
+        const newProjectAdd = document.createElement('div');
+        newProjectAdd.classList.add('addedProjects');
+        const projectNameTxt = document.createElement('p');
+        
+        projectNameTxt.innerHTML = projectName;
+        newProjectAdd.appendChild(projectNameTxt);
+        allProjects.appendChild(newProjectAdd);
+        sidebarProjectContainer.appendChild(allProjects);
+
+        newProjectAdd.addEventListener('click', () => {
+          let projectTxt = newProjectAdd.innerText;
+          projectDetails(projectTxt, projects[i].tasksArray); 
+          resetOptions();
+        });
+      };
+    } else {
+      return;
+    }
+  };
+  //direct function call to get Projects from memory
+  populateProjects();
+
   addProjectBtn.addEventListener('click', (event) => {
     btnDiv.id = 'btnDiv';
     addProjectBtn.innerHTML = '';
