@@ -7,7 +7,10 @@ let completedTasks = [];
 
 // functions to store and retrieve from local storage
 // stringify to ensure array values are strings 
-function storeArray(key, array) {
+
+// Projects stored along with all task arrays
+// allTasks displayed upon Load?
+export function storeArray(key, array) {
   if (Array.isArray(array)) {
     localStorage.setItem(key, JSON.stringify(array));
   } else {
@@ -15,7 +18,7 @@ function storeArray(key, array) {
   }
 };
 
-function getArray(key) {
+export function getArray(key) {
   const storedArray = localStorage.getItem(key);
   if (storedArray) {
     return JSON.parse(storedArray);
@@ -42,11 +45,11 @@ export function makeTask(task,notes,date) {
   }
 };
 
-export function deleteTask(tasksArray, selectedTask) {
+export function deleteTask(tasksArray, selectedTask, key) {
   tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
 };
 
-export function addTask(tasksArray, selectedTask) {
+export function addTask(tasksArray, selectedTask, key) {
   const index = tasksArray.indexOf(selectedTask);
   tasksArray.splice(index, 0, selectedTask);
 };
@@ -56,23 +59,21 @@ export function makeProject(title) {
   this.tasksArray = [];
   this.complete = false;
 
-  function addProject(project) {
-    projects.push(project);
-    storeArray('projects', projects);
-  };
-
-  function deleteProject(project) {
-    projects.splice(projects.indexOf(project), 1);
-    storeArray('projects', projects);
-  };
-
   return {
     title,
     tasksArray: this.tasksArray,
     complete: this.complete,
-    addProject,
-    deleteProject
   };
+};
+
+export function addProject(project) {
+  projects.push(project);
+  storeArray(project.title, projects);
+};
+
+export function deleteProject(project) {
+  projects.splice(projects.indexOf(project), 1);
+  storeArray(project.title, projects);
 };
 
 

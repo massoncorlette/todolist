@@ -9,7 +9,7 @@ import checkBoxFilled from './icons/checkboxfilled.svg';
 import importantIcon from './icons/flag.png';
 import edit from './icons/edit.svg';
 import { compareAsc, compareDesc, format } from "date-fns";
-import {makeProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
+import {storeArray, getArray, makeProject, addProject, deleteProject, makeTask, addTask, deleteTask, projects, allTasks, importantTasks, completedTasks, orderTasks} from './helpers';
 
 
 //use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
@@ -130,6 +130,7 @@ function resetOptions() {
 };
 
 export function newProject() {
+  const sidebarProjectContainer = document.querySelector('#project-container');
   let addProjectBtn = document.getElementById('add-container');
   let projectInput = document.createElement('input');
   let cancelBtn = document.createElement('button');
@@ -157,7 +158,6 @@ export function newProject() {
     });
 
     addBtn.addEventListener('click', (event) => {
-      const sidebarProjectContainer = document.querySelector('#project-container');
       const allProjects = document.querySelector('#allProjects');
       
       if (projectInput.value) {
@@ -172,7 +172,7 @@ export function newProject() {
         sidebarProjectContainer.appendChild(allProjects);
         
         const newProject = new makeProject(projectName);
-        projects.push(newProject);
+        addProject(newProject);
         console.log(projects);
 
         newProjectAdd.addEventListener('click', () => {
@@ -322,10 +322,12 @@ const projectDetails = function(project, projectArray) {
         completedImg.src = checkBoxFilled;
         task.complete = true;
         completedTasks.push(task);
+        storeArray("completedTasks", completedTasks);
       } else {
         completedImg.src = checkBox;
         task.complete = false;
         deleteTask(completedTasks, task);
+        storeArray("completedTasks", completedTasks);
       };
     });
 
@@ -334,10 +336,12 @@ const projectDetails = function(project, projectArray) {
         importantImg.src = toggleImportantFill;
         task.important = true;
         importantTasks.push(task);
+        storeArray('importantTasks', importantTasks);
       } else {
         importantImg.src = toggleImportantIcon
         task.important = false;
         deleteTask(importantTasks, task);
+        storeArray('importantTasks', importantTasks);
       };
     });
 
@@ -365,12 +369,16 @@ const projectDetails = function(project, projectArray) {
       }     
       deleteTask(allTasks, task);
       deleteTask(projectArray, task);
+      storeArray('allTasks', allTasks);
+      storeArray(title.innerText, projectArray);
       console.log(allTasks);
       if (task.important === true) {
         deleteTask(importantTasks, task);
+        storeArray('importantTasks', importantTasks);
       };
       if (task.complete === true) {
         deleteTask(completedTasks, task);
+        storeArray('completedTasks', completedTasks);
       };
     });
     editSelection.addEventListener('click', () => {
@@ -491,12 +499,26 @@ const projectDetails = function(project, projectArray) {
 
         displayAllTasks(projectArray);
         projectInfoContainer.appendChild(addTaskContainer);
+        storeArray('allTasks', allTasks);
+        storeArray(title.innerText, projectArray);
+
+        if (task.important === true) {
+          deleteTask(importantTasks, task);
+          storeArray('importantTasks', importantTasks);
+        };
+        if (task.complete === true) {
+          deleteTask(completedTasks, task);
+          storeArray('completedTasks', completedTasks);
+        };
+        
       } else {
         allTasks.push(newTask);
         projectArray.push(newTask);
         projectInfoContainer.removeChild(taskContainer);
         displayAllTasks(projectArray); 
-        projectInfoContainer.appendChild(addTaskContainer);     
+        projectInfoContainer.appendChild(addTaskContainer); 
+        storeArray('allTasks', allTasks);    
+        storeArray(title.innerText, projectArray);
       }
     });
   };
