@@ -26,6 +26,8 @@ const allOptions = document.querySelectorAll('.options');
 const allProjects = document.querySelectorAll('.addedProjects');
 const starterTxt = document.getElementById('startertxt');
 
+const DOMLoad = true;
+
 function clearMain() {
   while (main.firstChild) {
     main.removeChild(main.firstChild);
@@ -146,6 +148,7 @@ export function newProject() {
 
   function populateProjects() {
     const allProjects = document.querySelector('#allProjects');
+
 
     if (projects) {
 
@@ -361,29 +364,41 @@ const projectDetails = function(project, projectArray) {
 
     toggleComplete.addEventListener('click', () => {
       if (completedImg.src === checkBox) {
+        deleteTask(allTasks, task);
         completedImg.src = checkBoxFilled;
         task.complete = true;
+        addTask(allTasks, task);
         completedTasks.push(task);
         storeArray("completedTasks", completedTasks);
+        storeArray("allTasks", allTasks);
       } else {
+        deleteTask(allTasks, task);
         completedImg.src = checkBox;
         task.complete = false;
+        addTask(allTasks, task);
         deleteTask(completedTasks, task);
         storeArray("completedTasks", completedTasks);
+        storeArray("allTasks", allTasks);
       };
     });
 
     toggleImportant.addEventListener('click', () => {
       if (importantImg.src === toggleImportantIcon) {
+        deleteTask(allTasks, task);
         importantImg.src = toggleImportantFill;
         task.important = true;
+        addTask(allTasks, task);
         importantTasks.push(task);
         storeArray('importantTasks', importantTasks);
+        storeArray('allTasks', allTasks);
       } else {
+        deleteTask(allTasks, task);
         importantImg.src = toggleImportantIcon
         task.important = false;
+        addTask(allTasks, task);
         deleteTask(importantTasks, task);
         storeArray('importantTasks', importantTasks);
+        storeArray("allTasks", allTasks);
       };
     });
 
@@ -412,7 +427,8 @@ const projectDetails = function(project, projectArray) {
       deleteTask(allTasks, task);
       deleteTask(projectArray, task);
       storeArray('allTasks', allTasks);
-      storeArray(title.innerText, projectArray);
+      storeArray(project, projectArray);
+      storeArray('projects', projects);
       console.log(allTasks);
       if (task.important === true) {
         deleteTask(importantTasks, task);
@@ -441,9 +457,9 @@ const projectDetails = function(project, projectArray) {
 
   //Made my elements too early now I have this very specific function to bail me out
   //lesson learned..
-  function displayAllTasks(taskArray) {
+  function displayAllTasks(taskArray, loadIn) {
 
-    if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+    if (!loadIn && main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
      
       const projectSelector = document.querySelector('.projectInfoContainer');
       
@@ -472,7 +488,9 @@ const projectDetails = function(project, projectArray) {
     projectInfoContainer.appendChild(addTaskContainer);
   };
   // direct function call to keep tasks displayed for every project
-  displayAllTasks(projectArray);
+  if (projectArray) {
+    displayAllTasks(projectArray);
+  }
 
   function addTaskForum(taskInput, taskDetails, editBoolean, projectTasks, task) {
     const taskForum = document.createElement('form');
@@ -526,13 +544,15 @@ const projectDetails = function(project, projectArray) {
       const taskDateValue = taskDate.value;
 
       // making sure no task name duplicates
-      for (let i=0;i<projectArray.length;i++) {
-        if (taskName === projectArray[i].task) {
-          event.preventDefault(); 
-          alert('Project name already exists!'); 
-          return;         
-        }
-      };
+      if (projectArray !== undefined) {
+        for (let i=0;i<projectArray.length;i++) {
+          if (taskName === projectArray[i].task) {
+            event.preventDefault(); 
+            alert('Project name already exists!'); 
+            return;         
+          }
+        };
+      }
 
       let formattedTaskDate = null;
       if (taskDateValue) {
@@ -658,41 +678,9 @@ const projectDetails = function(project, projectArray) {
     });
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-
-  });
-  todo.addEventListener('click', () => {
-    clearMain();
-    if (allTasks.length === 0) {
-      main.appendChild(starterTxt);
-    } else {
-      displayAllTasks(allTasks);
-    }
-    resetOptions(); 
-    todo.classList.add('optionsClicked');
-  });
-  
-  important.addEventListener('click', () => {
-    clearMain();
-    if (importantTasks.length === 0) {
-      main.appendChild(starterTxt);
-    } else {
-      displayAllTasks(importantTasks);
-    }
-    resetOptions(); 
-    important.classList.add('optionsClicked');
-  });
-  
-  completed.addEventListener('click', () => {
-    clearMain();
-    if (completedTasks.length === 0) {
-      main.appendChild(starterTxt);
-    } else {
-      displayAllTasks(completedTasks);
-    }
-    resetOptions(); 
-    completed.classList.add('optionsClicked');
-  });
+  return {
+    displayAllTasks: displayAllTasks,
+  }
 };
 export function setTheme() {
   const root = document.documentElement;
@@ -701,3 +689,36 @@ export function setTheme() {
 }
 const toggleSwitch = document.querySelector('#toggleClick');
 toggleSwitch.addEventListener('click', setTheme);
+
+todo.addEventListener('click', () => {
+  clearMain();
+  if (allTasks.length === 0) {
+    main.appendChild(starterTxt);
+  } else {
+    projectDetails().displayAllTasks(allTasks, DOMLoad);
+  }
+  resetOptions(); 
+  todo.classList.add('optionsClicked');
+});
+
+important.addEventListener('click', () => {
+  clearMain();
+  if (importantTasks.length === 0) {
+    main.appendChild(starterTxt);
+  } else {
+    projectDetails().displayAllTasks(importantTasks, DOMLoad);
+  }
+  resetOptions(); 
+  important.classList.add('optionsClicked');
+});
+
+completed.addEventListener('click', () => {
+  clearMain();
+  if (completedTasks.length === 0) {
+    main.appendChild(starterTxt);
+  } else {
+    projectDetails().displayAllTasks(completedTasks, DOMLoad);
+  }
+  resetOptions(); 
+  completed.classList.add('optionsClicked');
+});

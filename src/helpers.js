@@ -52,11 +52,11 @@ export function makeTask(task,notes,date) {
   }
 };
 
-export function deleteTask(tasksArray, selectedTask, key) {
+export function deleteTask(tasksArray, selectedTask) {
   tasksArray.splice(tasksArray.indexOf(selectedTask), 1);
 };
 
-export function addTask(tasksArray, selectedTask, key) {
+export function addTask(tasksArray, selectedTask) {
   const index = tasksArray.indexOf(selectedTask);
   tasksArray.splice(index, 0, selectedTask);
 };
