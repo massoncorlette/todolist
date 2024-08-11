@@ -421,13 +421,24 @@ const projectDetails = function(project, projectArray) {
     deleteSelection.addEventListener('click', () => {
       if (main.firstChild.classList.contains('projectInfoContainer')) {
         projectInfoContainer.removeChild(taskInformation);
+        deleteTask(projectArray, task);
+        storeArray(project, projectArray);
       } else {
         main.removeChild(taskInformation);
+
+        for (let i=0;i<projects.length;i++) {
+          for (let j=0; j<projects[i].tasksArray.length;j++) {
+            if (projects[i].tasksArray[j].task === task.task) {
+              deleteTask(projects[i].tasksArray, task);
+              storeArray(project, projectArray);
+            }
+          }
+        }
       }     
       deleteTask(allTasks, task);
-      deleteTask(projectArray, task);
+      
       storeArray('allTasks', allTasks);
-      storeArray(project, projectArray);
+     
       storeArray('projects', projects);
       console.log(allTasks);
       if (task.important === true) {
@@ -586,6 +597,7 @@ const projectDetails = function(project, projectArray) {
           };
         } else {
           for (let i=0;i<projects.length;i++) {
+            //task.project === undefined !!!
             if (projects[i].title === task.project) {
               let thisProjectArray = projects[i].tasksArray;
               addTask(allTasks, newTask);
