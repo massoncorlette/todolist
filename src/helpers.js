@@ -36,10 +36,11 @@ export function populateArrays() {
 };
 
 //factory functions so each project & task has methods and properties
-export function makeTask(task,notes,date) {
+export function makeTask(task,notes,date,project) {
   this.task = task;
   this.notes = notes;
   this.date = date;
+  this.project = project;
   this.important = false;
   this.complete = false;
 
@@ -47,6 +48,7 @@ export function makeTask(task,notes,date) {
     task:task,
     notes:notes,
     date:date,
+    project:project,
     important: this.important,
     complete: this.complete
   }

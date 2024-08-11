@@ -544,7 +544,7 @@ const projectDetails = function(project, projectArray) {
       const taskDateValue = taskDate.value;
 
       // making sure no task name duplicates
-      if (projectArray !== undefined) {
+      if (projectArray !== undefined && editBoolean !== true) {
         for (let i=0;i<projectArray.length;i++) {
           if (taskName === projectArray[i].task) {
             event.preventDefault(); 
@@ -558,29 +558,65 @@ const projectDetails = function(project, projectArray) {
       if (taskDateValue) {
         formattedTaskDate = format(new Date(taskDateValue), 'MM/dd/yyyy');
       }
-      const newTask = new makeTask(taskName, taskNotes, formattedTaskDate);
+      const newTask = new makeTask(taskName, taskNotes, formattedTaskDate, project);
 
       if (editBoolean) {
-        addTask(allTasks, newTask);
-        addTask(projectTasks, newTask);
+        if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+          addTask(allTasks, newTask);
 
-        deleteTask(allTasks, task);
-        deleteTask(projectTasks, task);
-        main.removeChild(taskContainer); 
+          addTask(projectTasks, newTask);
+  
+          deleteTask(allTasks, task);
+          deleteTask(projectTasks, task);
 
-        displayAllTasks(projectArray);
-        projectInfoContainer.appendChild(addTaskContainer);
-        storeArray('allTasks', allTasks);
-        storeArray(title.innerText, projectArray);
-        storeArray('projects', projects);
-        if (task.important === true) {
-          deleteTask(importantTasks, task);
-          storeArray('importantTasks', importantTasks);
+          main.removeChild(taskContainer); 
+
+          displayAllTasks(projectArray);
+          projectInfoContainer.appendChild(addTaskContainer);
+          storeArray('allTasks', allTasks);
+          storeArray(title.innerText, projectArray);
+          storeArray('projects', projects);
+          if (task.important === true) {
+            deleteTask(importantTasks, task);
+            storeArray('importantTasks', importantTasks);
+          };
+          if (task.complete === true) {
+            deleteTask(completedTasks, task);
+            storeArray('completedTasks', completedTasks);
+          };
+        } else {
+          for (let i=0;i<projects.length;i++) {
+            if (projects[i].title === task.project) {
+              let thisProjectArray = projects[i].tasksArray;
+              addTask(allTasks, newTask);
+
+              addTask(thisProjectArray, newTask);
+      
+              deleteTask(allTasks, task);
+              deleteTask(thisProjectArray, task);
+
+              main.removeChild(taskContainer); 
+
+              displayAllTasks(thisProjectArray);
+              break;
+            }
+          }
+
+          projectInfoContainer.appendChild(addTaskContainer);
+          storeArray('allTasks', allTasks);
+          storeArray(title.innerText, projectArray);
+          storeArray('projects', projects);
+          if (task.important === true) {
+            deleteTask(importantTasks, task);
+            storeArray('importantTasks', importantTasks);
+          };
+          if (task.complete === true) {
+            deleteTask(completedTasks, task);
+            storeArray('completedTasks', completedTasks);
+          };
         };
-        if (task.complete === true) {
-          deleteTask(completedTasks, task);
-          storeArray('completedTasks', completedTasks);
-        };
+
+
 
       } else {
         allTasks.push(newTask);
