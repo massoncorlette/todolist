@@ -149,7 +149,6 @@ export function newProject() {
   function populateProjects() {
     const allProjects = document.querySelector('#allProjects');
 
-
     if (projects) {
 
       for (let i=0;i<projects.length;i++) {
@@ -461,6 +460,7 @@ const projectDetails = function(project, projectArray) {
       taskDetails.innerHTML = notes;
 
       const editBoolean = true;
+      // PROJECTARRY undefined upon editing in tabs
       addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task);
     })
     return taskInformation;
@@ -563,7 +563,16 @@ const projectDetails = function(project, projectArray) {
             return;         
           }
         };
-      }
+        for (let i=0;i<projects.length;i++) {
+          for (let j=0;j<projects[i].tasksArray.length;j++) {
+            if (taskName === projects[i].tasksArray[j].task) {
+              event.preventDefault(); 
+              alert('Project name already exists!'); 
+              return;         
+            }
+          }
+        }
+      };
 
       let formattedTaskDate = null;
       if (taskDateValue) {
@@ -582,7 +591,7 @@ const projectDetails = function(project, projectArray) {
 
           main.removeChild(taskContainer); 
 
-          displayAllTasks(projectArray);
+          
           projectInfoContainer.appendChild(addTaskContainer);
           storeArray('allTasks', allTasks);
           storeArray(title.innerText, projectArray);
@@ -595,10 +604,11 @@ const projectDetails = function(project, projectArray) {
             deleteTask(completedTasks, task);
             storeArray('completedTasks', completedTasks);
           };
+          displayAllTasks(projectArray);
         } else {
           for (let i=0;i<projects.length;i++) {
             //task.project === undefined !!!
-            if (projects[i].title === task.project) {
+            if (projects[i].title === projectArray[0].project) {
               let thisProjectArray = projects[i].tasksArray;
               addTask(allTasks, newTask);
 
@@ -743,7 +753,7 @@ todo.addEventListener('click', () => {
   if (allTasks.length === 0) {
     main.appendChild(starterTxt);
   } else {
-    projectDetails().displayAllTasks(allTasks, DOMLoad);
+    projectDetails(undefined, allTasks).displayAllTasks(allTasks, DOMLoad);
   }
   resetOptions(); 
   todo.classList.add('optionsClicked');
@@ -754,7 +764,7 @@ important.addEventListener('click', () => {
   if (importantTasks.length === 0) {
     main.appendChild(starterTxt);
   } else {
-    projectDetails().displayAllTasks(importantTasks, DOMLoad);
+    projectDetails(undefined, importantTasks).displayAllTasks(importantTasks, DOMLoad);
   }
   resetOptions(); 
   important.classList.add('optionsClicked');
@@ -765,7 +775,7 @@ completed.addEventListener('click', () => {
   if (completedTasks.length === 0) {
     main.appendChild(starterTxt);
   } else {
-    projectDetails().displayAllTasks(completedTasks, DOMLoad);
+    projectDetails(undefined, completedTasks).displayAllTasks(completedTasks, DOMLoad);
   }
   resetOptions(); 
   completed.classList.add('optionsClicked');
