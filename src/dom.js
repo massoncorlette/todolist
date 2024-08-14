@@ -15,6 +15,8 @@ import {populateArrays,storeArray, getArray, makeProject, addProject, deleteProj
 //use splice(startIndex, deleteCount, items): Adds or removes elements from array when update edited task
 //use filter for todo tasks on all tasks page
 
+// PROJECT ATTRIBUE NOT UPDATING IN TABS AFTER EDIT SUBMIT
+
 const main = document.getElementById('main-body');
 const body = document.querySelector('body');
 const sidebar = document.querySelector('.sidebar-container');
@@ -276,7 +278,7 @@ const projectDetails = function(project, projectArray) {
 
   let taskColorToggle = true;
   // start of task main
-  const displayTasks = function(taskname, notes, date, task) {
+  const displayTasks = function(taskname, notes, date, task,) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
     const toggleNotes = document.createElement('div');
