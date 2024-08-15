@@ -82,8 +82,14 @@ export function addProject(project) {
 };
 
 export function deleteProject(project, projectArray) {
-  projects.splice(projects.indexOf(project) - 1, 1);
-  storeArray('projects', projects);
+  for (let i=0;i< projects.length;i++) {
+    if (projects[i].title === project) {
+      let index = i;
+      projects.splice(index, 1);
+      storeArray('projects', projects);
+      break;
+    }
+  }
 
   for (let i=0;i<projectArray.length;i++) {
     checkArrays(projectArray[i].task, allTasks);

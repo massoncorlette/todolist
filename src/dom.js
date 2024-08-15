@@ -412,6 +412,7 @@ const projectDetails = function(project, projectArray) {
         completedTasks.push(task);
         storeArray("completedTasks", completedTasks);
         storeArray("allTasks", allTasks);
+        storeArray(project, projectArray);
       } else {
         deleteTask(allTasks, task);
         completedImg.src = checkBox;
@@ -420,6 +421,7 @@ const projectDetails = function(project, projectArray) {
         deleteTask(completedTasks, task);
         storeArray("completedTasks", completedTasks);
         storeArray("allTasks", allTasks);
+        storeArray(project, projectArray);
       };
     });
 
@@ -432,6 +434,7 @@ const projectDetails = function(project, projectArray) {
         importantTasks.push(task);
         storeArray('importantTasks', importantTasks);
         storeArray('allTasks', allTasks);
+        storeArray(project, projectArray);
       } else {
         deleteTask(allTasks, task);
         importantImg.src = toggleImportantIcon
@@ -440,6 +443,8 @@ const projectDetails = function(project, projectArray) {
         deleteTask(importantTasks, task);
         storeArray('importantTasks', importantTasks);
         storeArray("allTasks", allTasks);
+        storeArray(project, projectArray);
+
       };
     });
 
@@ -516,6 +521,7 @@ const projectDetails = function(project, projectArray) {
         addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task, taskProject);
       }
     })
+    storeArray('projects', projects);
     return taskInformation;
   };
 
@@ -587,7 +593,11 @@ const projectDetails = function(project, projectArray) {
     taskForum.appendChild(inputDateContainer); 
     taskForum.appendChild(taskDetails);
     taskForum.appendChild(inputBtnContainer);
-    
+
+    const addTaskContainer = document.querySelector('.addTaskContainer');
+    if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+      projectInfoContainer.removeChild(addTaskContainer);
+    }
     taskContainer.appendChild(taskForum);
 
     editBoolean ? main.appendChild(taskContainer) : projectInfoContainer.appendChild(taskContainer);
@@ -627,6 +637,9 @@ const projectDetails = function(project, projectArray) {
           }
         }
       };
+      if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+        projectInfoContainer.appendChild(addTaskContainer);
+      }
 
       let formattedTaskDate = null;
       if (taskDateValue) {
@@ -676,10 +689,13 @@ const projectDetails = function(project, projectArray) {
               break;
             }
           }
-          projectInfoContainer.appendChild(addTaskContainer);
+          if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+            projectInfoContainer.removeChild(taskContainer);
+          } 
           storeArray('allTasks', allTasks);
           storeArray(title.innerText, projectArray);
           storeArray('projects', projects);
+          displayAllTasks(projectArray);
           if (task.important === true) {
             deleteTask(importantTasks, task);
             storeArray('importantTasks', importantTasks);
