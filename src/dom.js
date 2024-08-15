@@ -278,7 +278,7 @@ const projectDetails = function(project, projectArray) {
 
   let taskColorToggle = true;
   // start of task main
-  const displayTasks = function(taskname, notes, date, task,) {
+  const displayTasks = function(taskname, notes, date, task, taskProject) {
     const taskInformation = document.createElement('div');
     const taskTitle = document.createElement('div');
     const toggleNotes = document.createElement('div');
@@ -463,7 +463,11 @@ const projectDetails = function(project, projectArray) {
 
       const editBoolean = true;
       // PROJECTARRY undefined upon editing in tabs
-      addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task);
+      if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+        addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task);
+      } else {
+        addTaskForum(taskInput, taskDetails, editBoolean, projectArray, task, taskProject);
+      }
     })
     return taskInformation;
   };
@@ -491,10 +495,11 @@ const projectDetails = function(project, projectArray) {
       setupOrderByContainer(taskArray);
     }
     for (let i = 0; i < taskArray.length; i++) {
-      let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
       if (main.firstElementChild && main.firstElementChild.classList.contains('projectInfoContainer')) {
+        let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i]);
         projectInfoContainer.appendChild(taskToDisplay);
       } else {
+        let taskToDisplay = displayTasks(taskArray[i].task, taskArray[i].notes, taskArray[i].date, taskArray[i], taskArray[i].project);
         main.appendChild(taskToDisplay);
       };
     };
@@ -505,7 +510,7 @@ const projectDetails = function(project, projectArray) {
     displayAllTasks(projectArray);
   }
 
-  function addTaskForum(taskInput, taskDetails, editBoolean, projectTasks, task) {
+  function addTaskForum(taskInput, taskDetails, editBoolean, projectTasks, task, taskProject) {
     const taskForum = document.createElement('form');
     const taskDate = document.createElement('input');
     const submitBtn = document.createElement('button');
@@ -609,8 +614,7 @@ const projectDetails = function(project, projectArray) {
           displayAllTasks(projectArray);
         } else {
           for (let i=0;i<projects.length;i++) {
-            //task.project === undefined !!!
-            if (projects[i].title === projectArray[0].project) {
+            if (projects[i].title === taskProject) {
               let thisProjectArray = projects[i].tasksArray;
               addTask(allTasks, newTask);
 
@@ -625,7 +629,6 @@ const projectDetails = function(project, projectArray) {
               break;
             }
           }
-
           projectInfoContainer.appendChild(addTaskContainer);
           storeArray('allTasks', allTasks);
           storeArray(title.innerText, projectArray);
@@ -639,8 +642,6 @@ const projectDetails = function(project, projectArray) {
             storeArray('completedTasks', completedTasks);
           };
         };
-
-
 
       } else {
         allTasks.push(newTask);
@@ -737,7 +738,6 @@ const projectDetails = function(project, projectArray) {
       resetOptions();
     });
   });
-
   return {
     displayAllTasks: displayAllTasks,
   }
