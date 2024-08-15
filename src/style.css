@@ -276,6 +276,11 @@ input[type="text"] , textarea {
   background-color: var(--sixth-color);
 }
 
+.editContainer {
+  display: flex;
+  margin-left: 1%;
+}
+
 .titleBtnContainer {
   display: flex;
   flex: 1;
@@ -292,7 +297,7 @@ input[type="text"] , textarea {
   font-weight: 600;
   font-style: oblique;
   color: rgba(26, 26, 26, 0.801);
-  margin-left: 5%;
+  margin-left: 4%;
 }
 
 #sidebar-icon {
@@ -649,7 +654,7 @@ input:checked + .slider:before {
   margin-right: 2%;
 }
 
-.toggleCompleted:hover {
+.toggleCompleted:hover, .editContainer:hover {
   cursor: pointer;
 }
 
@@ -685,14 +690,24 @@ input:checked + .slider:before {
   right: 2%;
 }
 
-.dropdown-content a {
+.dropdown-contentProject {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 2%;
+}
+
+.dropdown-content a, .dropdown-contentProject a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd; cursor: pointer;}
+.dropdown-content a:hover, .dropdown-contentProject a:hover {background-color: #ddd; cursor: pointer;}
 
 .show {display:block;}
 

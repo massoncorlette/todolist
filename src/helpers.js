@@ -81,11 +81,31 @@ export function addProject(project) {
   storeArray('projects', projects);
 };
 
-export function deleteProject(project) {
-  projects.splice(projects.indexOf(project), 1);
-  storeArray(project.title, project);
+export function deleteProject(project, projectArray) {
+  projects.splice(projects.indexOf(project) - 1, 1);
   storeArray('projects', projects);
+
+  for (let i=0;i<projectArray.length;i++) {
+    checkArrays(projectArray[i].task, allTasks);
+    checkArrays(projectArray[i].task, importantTasks);
+    checkArrays(projectArray[i].task, completedTasks);
+
+    storeArray(project.title, project);
+    storeArray('projects', projects);
+
+    storeArray('allTasks', allTasks);
+    storeArray('importantTasks', importantTasks);
+    storeArray('completedTasks', completedTasks);
+  }
 };
+
+function checkArrays(task, array) {
+  for (let i=0;i<array.length;i++) {
+    if (task === array[i].task) {
+      deleteTask(array,task);
+    }
+  }
+}
 
 
 

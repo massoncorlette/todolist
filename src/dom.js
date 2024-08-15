@@ -246,7 +246,11 @@ export function newProject() {
     projectInput.classList.remove('focus');
     projectInput.value = '';
   }
+  return {
+    populateProjects,
+  }
 };
+
 
 //main body DOM 
 const projectDetails = function(project, projectArray) {
@@ -258,16 +262,36 @@ const projectDetails = function(project, projectArray) {
   let addTaskContainer = document.createElement('div');
   let title = document.createElement('p');
   let addTxt = document.createElement('p');
+  let editContainer = document.createElement('div');
+  let settingImg = document.createElement('img');
 
   titleBtnContainer.classList.add('titleBtnContainer');
   projectInfoContainer.classList.add('projectInfoContainer');
   addTaskBtn.classList.add('addTaskBtn');
   addTaskContainer.classList.add('addTaskContainer');
+  settingImg.src = edit;
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'dropdown-contentProject';
+
+  const editSelection = document.createElement('a');
+  editSelection.textContent = 'Edit';
+
+  const deleteSelection = document.createElement('a');
+  deleteSelection.textContent = 'Delete';
+
+  dropdown.appendChild(editSelection);
+  dropdown.appendChild(deleteSelection);
+
+  editContainer.classList.add('editContainer');
 
   title.innerText = project;
   addTxt.id = "addtxt";
   addTxt.innerText = "Add task";
- 
+
+  editContainer.appendChild(settingImg);
+  editContainer.appendChild(dropdown);
+  titleBtnContainer.appendChild(editContainer);
   titleBtnContainer.appendChild(title);
   projectInfoContainer.appendChild(titleBtnContainer);
   addTaskContainer.appendChild(addTxt);
@@ -275,6 +299,22 @@ const projectDetails = function(project, projectArray) {
   projectInfoContainer.appendChild(addTaskContainer);
 
   main.appendChild(projectInfoContainer);
+
+  editContainer.addEventListener('click', (event) => {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  window.addEventListener('click', (event) => {
+    if (!editContainer.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.classList.remove("show");
+    }
+  });
+
+  deleteSelection.addEventListener('click', () => {
+    deleteProject(project, projectArray);
+    location.reload();
+  })
 
   let taskColorToggle = true;
   // start of task main
@@ -416,8 +456,15 @@ const projectDetails = function(project, projectArray) {
       toggleNotes.classList.toggle('open')
     });
 
-    taskEditContainer.addEventListener('click', () => {
+    taskEditContainer.addEventListener('click', (event) => {
+      event.stopPropagation();
       dropdown.classList.toggle("show");
+    });
+
+    window.addEventListener('click', (event) => {
+      if (!taskEditContainer.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.remove("show");
+      }
     });
     deleteSelection.addEventListener('click', () => {
       if (main.firstChild.classList.contains('projectInfoContainer')) {
